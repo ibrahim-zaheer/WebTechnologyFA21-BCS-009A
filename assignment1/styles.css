@@ -49,12 +49,14 @@ a{
     font-weight: 700;
     font-size: 2rem;
     text-transform: uppercase;
+    margin-top: 2rem;
 }
 .item_preTitle{
     font-size: 1.4rem;
     color: var(--text-color);
     font-weight: 300;
 }
+
 .item_Title{
     font-size: 1.6rem;
     font-weight: 500;
@@ -135,6 +137,7 @@ a{
     flex: 1;
     padding: 20px;
     /* grid-column: 1 / 3; */
+    background-color: gold;
 }
 
 .group2 {
@@ -144,9 +147,16 @@ a{
     padding: 20px;
     grid-column: 2 / 3;
 }
+/* .group3 {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+    grid-column: 3 / 3;
+} */
 
 /* education */
-.edu_item{
+.edu_item, .exp_item, .Interest_item{
     margin-top: 2rem;
 }
 .cert_item{
@@ -154,3 +164,35 @@ a{
     margin-bottom: 2 rem;
 }
 
+.icon {
+    width: 32px; 
+    height: 32px; 
+}
+.icon_preTitle{
+   
+    
+    flex-direction: row;
+    display: grid;
+    
+}
+.Interest_item{
+    display: flex;
+    right: 20rem;
+}
+
+.icon_Title{
+margin-right: 6rem;
+margin-left:  2rem;
+}
+.group-3 {
+	max-width: 700px;
+	width: 100%;
+	margin: 0 auto;
+	grid-column: 1/-1;
+	display: flex;
+	flex-direction: row;
+	gap: 5rem;
+}
+.group-3>div{
+    flex: 1;
+}
