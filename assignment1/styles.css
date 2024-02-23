@@ -137,7 +137,7 @@ a{
     flex: 1;
     padding: 20px;
     /* grid-column: 1 / 3; */
-    background-color: gold;
+    /* background-color: red; */
 }
 
 .group2 {
@@ -146,6 +146,7 @@ a{
     flex: 1;
     padding: 20px;
     grid-column: 2 / 3;
+    /* background-color: gold; */
 }
 /* .group3 {
     display: flex;
@@ -195,4 +196,28 @@ margin-left:  2rem;
 }
 .group-3>div{
     flex: 1;
+}
+.profile{
+    /* background-color: blue; */
+}
+
+.contact{
+ 
+    display: block;
+}
+
+.social_items {
+	margin-top: 2rem;
+}
+.social_item {
+	margin-top: 1.5rem;
+	font-size: 1.5rem;
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: flex-start;
+	color: var(--text-color);
+}
+.social_item:hover {
+	color: var(--primary-color);
 }
