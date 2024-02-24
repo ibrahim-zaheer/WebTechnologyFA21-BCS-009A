@@ -203,7 +203,13 @@ margin-left:  2rem;
 
 .contact{
  
+    display: grid;
+    position: absolute;
+}
+.Social{
     display: block;
+    position: relative;
+    margin-left: 200%;
 }
 
 .social_items {
