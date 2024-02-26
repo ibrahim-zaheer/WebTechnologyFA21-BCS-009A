@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three Rows Layout</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background-color: green;
+    }
+
+    .container {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr); /* Three rows, each taking one-third of the available space */
+      height: 100%;
+      width: 100%;
+    }
+
+    .row {
+      
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .row1 {
+      
+     background-color: blue;
+    }
+    .row2 {
+      
+        background-color: red;
+    }
+    .row3 {
+      
+        background-color: yellow;
+    }
+    .navigation_bar{
+        display: block;
+        width: 100%;
+        
+    }
+    .navbar-nav{
+        margin-left: auto;
+    }
+    .main_text1{
+        color: white;
+	font-weight: 200;
+	font-size: clamp(2rem, 8vw, 4rem);
+	text-transform: uppercase;
+	display: block;
+    font-weight: bolder;
+	margin-bottom: -0.8rem;
+    }
+    .main_text2{
+        color: black;
+	font-weight: 200;
+	font-size: clamp(2rem, 8vw, 4rem);
+	text-transform: uppercase;
+	display: block;
+    font-weight: bolder;
+	margin-bottom: -0.8rem;
+    }
+    .row_1_main_image {
+        margin-left: auto; /* Move the image to the right */
+    }
+    .row_1_main_image_size {
+        width: 200px; /* Set the width of the image */
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row row1">
+        <div class="navigation_bar">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Contact US</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+        </div>
+        <div class="row_1_main_text">
+            <span style="display: flex;" class="main_text1">Get your Products</span>
+            <span class="main_text2">Delievered Now</span>
+        </div>
+        <div class="row_1_main_image">
+            <img class="row_1_main_image_size" width="200" src="images/groceryMain.png" alt="">
+        </div>
+    </div>
+    <div class="row row2">Row 2</div>
+    <div class="row row3">Row 3</div>
+  </div>
+</body>
+</html>
+
