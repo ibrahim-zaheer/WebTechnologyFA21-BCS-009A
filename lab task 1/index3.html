@@ -60,10 +60,37 @@
             opacity: 1;
             transition: opacity 1s ease-in-out;
         }
-        
+        .text_wide_side_of_image{
+            font-size: 5rem;
+            margin-right: auto;
+        }
+        .container{
+            /* display: grid; */
+        }
+        .Part2{
+        display: grid;
+        }
+        .textWithSideOFImage{
+            font-family: Inter, Helvetica, Arial, sans-serif;
+	font-size: 80px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bolder;
+	letter-spacing: 1.50px;
+	line-height: 80px;
+    color: black;
+        }
+        .backGroundImage{
+            background-image: url(images/Time.png);
+            background-position: top right;
+        }
     </style>
 </head>
 <body>
+    <div class="p-5 bg-primary text-white text-center backGroundImage">
+        <h1>My First Bootstrap 5 Page</h1>
+        <!-- <img src="images/Time.png" class="backGroundImage" alt="">  -->
+      </div>
     <div class="container">
         <div class="Part1">
             <div class="navigation_bar">
@@ -101,30 +128,55 @@
         
 
         <!-- <img src="" class="rounded-circle" height="660px" width="550px" alt=""> -->
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+        <div class="row " style="display: flex;">
+            <div class="col-md-6" style="flex-direction: row;">
                 <img src="images/groceryMain.png" class="img-fluid rounded-circle appearing" alt="Centered Image" id="centeredImage">
             </div>
+            <div>
+                <h1 class="col-md-6 text_wide_side_of_image " style="flex-direction: row;" id="centeredText">Easy and Conveinence</h1>
+            </div>
         </div>
+       
 
     </div>
-    <div class="container p-5 my-5 bg-dark text-white appearing" id="centeredText ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto optio ut, quo cumque illum harum pariatur vitae exercitationem qui provident mollitia maiores, reiciendis ipsa veniam velit. Iure sint nam tempore.</div>
+    <div class="row " >
+        <div class="col-md-3" style="flex-direction: row;">
+            <img src="images/Time.png" class="img-fluid float-end rounded-circle appearing" alt="Centered Image" id="centeredImage">
+        </div>
+        <div>
+            <h1 class="col-md-9 text_wide_side_of_image " style="flex-direction: row;" >Why waste so much Time?</h1>
+            <h1 class="col-md-9 text_wide_side_of_image " style="flex-direction: row;" >To Go To Market</h1>
+        </div>
+    </div>
+
+
+    <!-- <div class="container p-5 my-5 bg-dark text-white appearing" id="centeredText ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto optio ut, quo cumque illum harum pariatur vitae exercitationem qui provident mollitia maiores, reiciendis ipsa veniam velit. Iure sint nam tempore.</div> -->
     <script>
         window.addEventListener('scroll', function() {
             var img = document.getElementById('centeredImage');
-            var text = document.getElementById('centeredText')
+            var text = document.getElementById('centeredText');
             var bounding = img.getBoundingClientRect();
             if (
                 bounding.top >= 0 &&
                 bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)
             ) {
                 img.classList.remove('hidden');
-                img.classList.add('visible');
+                text.classList.remove('hidden');
+                img.classList.add('appearing');
+                text.classList.add('appearing');
             } else {
-                img.classList.remove('visible');
+                img.classList.remove('appearing');
+                text.classList.remove('appearing');
                 img.classList.add('hidden');
+                text.classList.add('hidden');
             }
         });
     </script>
+    
+
+    
+    
+    
+    
 </body>
 </html>
