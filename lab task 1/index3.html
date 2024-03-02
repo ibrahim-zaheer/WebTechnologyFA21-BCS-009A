@@ -79,6 +79,19 @@
 	letter-spacing: 1.50px;
 	line-height: 80px;
     color: black;
+
+        }
+        .textWithSideOFImageLeft{
+            font-family: Inter, Helvetica, Arial, sans-serif;
+	font-size: 80px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bolder;
+	letter-spacing: 1.50px;
+	line-height: 80px;
+    color: black;
+    margin-left: 40%;
+    background-color: yellow;
         }
         .backGroundImage{
             background-image: url(images/Time.png);
@@ -88,7 +101,7 @@
 </head>
 <body>
     <div class="p-5 bg-primary text-white text-center backGroundImage">
-        <h1>My First Bootstrap 5 Page</h1>
+        <h1 style="color: brown; font-weight: bolder; font-size: 70px;" class="">Conveinence At Your DoorSTep</h1>
         <!-- <img src="images/Time.png" class="backGroundImage" alt="">  -->
       </div>
     <div class="container">
@@ -139,14 +152,93 @@
        
 
     </div>
-    <div class="row " >
-        <div class="col-md-3" style="flex-direction: row;">
-            <img src="images/Time.png" class="img-fluid float-end rounded-circle appearing" alt="Centered Image" id="centeredImage">
+  <div class="row">
+    <div class="col-md-3">
+        <img src="images/Time.png" class="img-fluid float-end rounded-circle appearing" alt="Centered Image" id="centeredImage">
+    </div>
+    <div class="col-md-9">
+        <div class="rounded p-3 bg-primary">
+            <h1 class="text_wide_side_of_image">Why waste so much Time?</h1>
         </div>
-        <div>
-            <h1 class="col-md-9 text_wide_side_of_image " style="flex-direction: row;" >Why waste so much Time?</h1>
-            <h1 class="col-md-9 text_wide_side_of_image " style="flex-direction: row;" >To Go To Market</h1>
+        <div class="rounded p-3 bg-success">
+            <h1 class="text_wide_side_of_image text-sm text-right">To Go To Market</h1>
         </div>
+        <div class="text-right">
+            <a href="#" class="btn btn-success">Link Button</a>
+        </div>
+    </div>
+</div>
+
+
+    <div>
+         <table class="table table-dark table-hover" style="margin-top: 20rem;">
+    <thead>
+      <tr>
+          <th>Properties</th>
+        <th>Ibrahim Ghost Wala</th>
+        <th>Other Ghost Walai</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Safai</td>
+        <td>Yes</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Sahi Naap Tol</td>
+       <td>Yes</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Sahi Boti Banana</td>
+        <td>Yes</td>
+        <td>No</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+    <div class="container-fluid">
+ <div class="btn-group">
+  <button type="button" class="btn btn-primary">Chicken</button>
+  <button type="button" class="btn btn-primary">Beef</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Mutton</button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Tablet</a>
+      <a class="dropdown-item" href="#">Smartphone</a>
+    </div>
+  </div>
+</div>
+    </div>
+    <div class="container">
+<h1>Delievery <span class="badge bg-primary">New</span></h1>
+  <div class="row">
+        <div class="col text-center" style="font-size: 40px;">
+            <p>Delivery Speed</p>
+        </div>
+    </div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12 ">
+            <div class="progress">
+                  <div class="progress-bar" style="width:40%">OtherGhost Walai</div>
+            </div>
+        </div>
+    </div>
+  <div class="row">
+
+        <div class="col-md-12 mt-5">
+            <div class="progress">
+                  <div class="progress-bar" style="width:90%">Ibrahim Ghost Wala</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
     </div>
 
 
