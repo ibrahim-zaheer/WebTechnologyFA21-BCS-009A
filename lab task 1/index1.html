@@ -10,6 +10,29 @@
     body{
         position: relative;
     }
+    .video-container {
+            position: relative;
+            width: 100%; /* Adjust as needed */
+            height: 100%; /* Adjust as needed */
+        }
+        video{
+          height: 100%;
+          width: 100%;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
   </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target=".navbar">
@@ -30,8 +53,40 @@
       </li>
   </ul>
 </nav>
+<div class="video-container">
+  <video src="videos/chicken_video.mp4" id = "video" ></video>
+  <div class="overlay" id="overlay">
+      Hover to Play
+  </div>
+</div>
+<script>
+   const video = document.getElementById("video");
+    const overlay = document.getElementById("overlay");
 
+    overlay.addEventListener('mouseenter', () => {
+        video.play();
+    });
 
+    overlay.addEventListener('mouseleave', () => {
+        video.pause();
+    });
+</script>
+<!-- <script>
+  const video = document.getElementById('video');
+  const overlay = document.getElementById('overlay');
+
+  video.addEventListener('mouseenter', () => {
+      video.play();
+  });
+
+  video.addEventListener('mouseleave', () => {
+      video.pause();
+  });
+  video.addEventListener('ended',()=>{
+video.currentTime= 0;
+video.play();
+  });
+</script> -->
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
 
     <!-- Indicators/dots -->
@@ -59,7 +114,7 @@
         </div> 
       </div>
       <div class="carousel-item">
-        <img src="images/mutton.jpg" height="500rem" alt="New York" class="d-block" style="width:100% ">
+        <img src="images/muttonMeat.jpg" height="500rem" alt="New York" class="d-block" style="width:100% ">
         <div class="carousel-caption bg-light">
           <h3>New York</h3>
           <p>We love the Big Apple!</p>
@@ -143,6 +198,10 @@
   </div>
   
   </div>
+  <div class="mt-4 p-5 bg-primary text-white rounded">
+    <h1>Special Message</h1> 
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..</p> 
+  </div>
   <footer class="footer-main bg-dark " id="Contact">
     <div class="container">
       <div class="row address-main">
@@ -183,6 +242,7 @@
         </div>
       </div>
   </div>
+  
   
   
   <!-- Copyright Footer -->
