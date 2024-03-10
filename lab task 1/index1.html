@@ -38,34 +38,131 @@
     .overlay.show {
       opacity: 1; /* Show when the 'show' class is added */
     }
-    p {
-  font-weight: 700;
-  text-align: center;
-  font-size: 40px;
-  font-family: Hack, sans-serif;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #000, #fff, #000);
-  letter-spacing: 5px;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-repeat: no-repeat;
-  background-size: 80%;
-  animation: shine 5s linear infinite;
+    .text_effect {
+      font-weight: 700;
+      text-align: center;
+      font-size: 40px;
+      font-family: Hack, sans-serif;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #000, #fff, #000);
+      letter-spacing: 5px;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-repeat: no-repeat;
+      background-size: 80%;
+      animation: shine 5s linear infinite;
+      position: relative;
+    }
+
+    @keyframes shine {
+      0% {
+        background-position-x: -500%;
+      }
+      100% {
+        background-position-x: 500%;
+      }
+      
+    }
+    .containerImage {
   position: relative;
+  width: 1160px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  margin: auto;
 }
-
-@keyframes shine {
-  0% {
-    background-position-x: -500%;
-  }
-  100% {
-    background-position-x: 500%;
-  }
+.containerImage .box {
+  position: relative;
+  width: 275px;
+  height: 275px;
+  background: #000;
+  transition: 0.5s;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  margin-right: 15px;
+  margin-top: 45px;
 }
-
+.containerImage:hover .box {
+  transform: rotateY(25deg);
+}
+.containerImage .box:hover ~ .box {
+  transform: rotateY(-25deg);
+}
+.containerImage .box:hover {
+  transform: rotateY(0deg) scale(1.25);
+  z-index: 1;
+  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+}
+.containerImage .box .imgBx {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.containerImage .box .imgBx:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg,#f00,#000);
+  z-index: 1;
+  opacity: 0;
+  transition: 0.5s;
+  mix-blend-mode: multiply;
+}
+.containerImage .box:hover .imgBx:before {
+  opacity: 1;
+}
+.containerImage .box .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.containerImage .box .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  padding: 20px;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+.containerImage .box .content h2 {
+  color: #fff;
+  transition: 0.5s;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-size: 20px;
+  transform: translateY(200px);
+  transition-delay: 0.3s;
+}
+.containerImage .box:hover .content h2 {
+  transform: translateY(0px);
+}
+.containerImage .box .content p {
+  color: #fff;
+  transition: 0.5s;
+  font-size: 14px;
+  transform: translateY(200px);
+  transition-delay: 0.4s;
+}
+.containerImage .box:hover .content p {
+  transform: translateY(0px);
+}
   </style>
-   
+
 </head>
 <body data-bs-spy="scroll" data-bs-target=".navbar">
 
@@ -86,10 +183,10 @@
   </ul>
 </nav>
 <div class="container-fluid">
-  <p>Welcome to my Ibrahim Meat Zone</p>
+  <p class="text_effect">Welcome to my Ibrahim Meat Zone</p>
 </div>
-<div class="video-container">
-  <video src="videos/chicken_video.mp4" id = "video" ></video>
+<div class="video-container" id="video-container">
+  <video src="videos/chicken_video.mp4" id="video"></video>
   <div class="overlay" id="overlay">
     How to play  
   </div>
@@ -97,13 +194,13 @@
 <script>
   const video = document.getElementById("video");
   const overlay = document.getElementById("overlay");
+  const videoContainer = document.getElementById("video-container");
 
- 
-  video.addEventListener('mouseenter', () => {
+  videoContainer.addEventListener('mouseenter', () => {
       video.play();
   });
 
-  video.addEventListener('mouseleave', () => {
+  videoContainer.addEventListener('mouseleave', () => {
       video.pause();
   });
 
@@ -265,6 +362,59 @@
     }
   </script>
   
+  </div>
+  <div >
+    <div class="containerImage">
+      <div class="box">
+        <div class="imgBx">
+          <img src="images/goatTypes/mongolian goat.png">
+          <!-- <video src="videos/chicken_video.mp4"></video> -->
+        </div>
+        <div class="content">
+          <div>
+            <h2>Image Title</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi accusamus molestias quidem iusto.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="imgBx">
+          <img src="images/goatTypes/desi goat.png">
+        </div>
+        <div class="content">
+          <div>
+            <h2>Image Title</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi accusamus molestias quidem iusto.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="imgBx">
+          <img src="images/goatTypes/pahari bakra.png">
+        </div>
+        <div class="content">
+          <div>
+            <h2>Image Title</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi accusamus molestias quidem iusto.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="imgBx">
+          <img src="images/goatTypes/teddy .png">
+        </div>
+        <div class="content">
+          <div>
+            <h2>Image Title</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi accusamus molestias quidem iusto.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="mt-4 p-5 bg-primary text-white rounded">
     <h1>Special Message</h1> 
