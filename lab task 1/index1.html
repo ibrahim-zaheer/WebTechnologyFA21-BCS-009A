@@ -161,6 +161,15 @@
 .containerImage .box:hover .content p {
   transform: translateY(0px);
 }
+.containerForm{
+  width: 300px;
+    margin: auto;
+    /* background-color: #f00; */
+}
+.containerForm > div {
+    margin-bottom: 10px;
+    
+  }
   </style>
 
 </head>
@@ -332,12 +341,35 @@
 
      </div>
   </div>
-  <div class="container">
+  <div class="container containerForm">
 
     <form action="" method="post" onsubmit="return formValidator()" name="myForm">
-      name <input type="text" name="name">
-      age <input type="number" name="age">
-      cnic <input type="number" name="cnic">
+      <div>
+        <h4> Full name</h4>  
+        <input type="text" placeholder="Enter your full name" name="name"/>  
+      </div>
+      <div>
+        <h4>age</h4>  
+        <input type="number" placeholder="Enter your age" name="age"/>  
+      </div>
+      <div>
+        <h4>cnic</h4>  
+        <input type="text" placeholder="Enter your cnic" name="cnic"/> 
+      </div>
+      <div>
+        <h4>Location</h4>  
+        <input type="text" placeholder="Enter your Location" name="location"/> 
+      </div>
+    
+      <div>
+        Meat 
+        <select id="optionSelect" name="option">
+          <option value="option1">Chicken</option>
+          <option value="option2">Mutton</option>
+          <option value="option3">Beef</option>
+          <option value="option4">Fish</option>
+        </select>
+      </div>
 
       <button type="submit">Submit</button>
     </form>
@@ -347,6 +379,7 @@
       let x = document.forms["myForm"]["name"].value
       let y = document.forms["myForm"]["age"].value
       let z = document.forms["myForm"]["cnic"].value
+      let loc = document.forms["myForm"]["location"].value
       if(x == ""){
         alert("name must be filled")
         return false
