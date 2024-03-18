@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
-    <div id="foodList"></div>
+    <div id="foodList" class="row"></div>
     <div>
       <h4>Add a food item</h4>
       <p><input type="text" id="add-name" placeholder="Name" /></p>
@@ -28,6 +28,12 @@
       <p><input type="url" id="update-image" placeholder="Image URL" /></p>
       <button id="update-item">Update the item</button>
     </div>
+       <div>
+      <h4>Delete a food item</h4>
+      <p><input type="text" id="delete-id" placeholder="id" /></p>
+    
+      <button id="delete-item">Delete the item</button>
+    </div>
 
     <script>
       function displayFood() {
@@ -39,16 +45,31 @@
             var uniList = $("#foodList");
             uniList.empty();
 
-            $.each(foods, function (index, food) {
-              uniList.append(
-                `<div class="mb-3">
-                    <a href="https://65f27572034bdbecc764d644.mockapi.io/api/meat/meat/${food.id}"><h3>${food.name}</h3></a>
-                    <div>${food.price}</div>
-                    <div> <img src="${food.Image}" alt=""></div>
-                </div>
-                <hr />`
-              );
-            });
+          $.each(foods, function (index, food) {
+  if (index % 2 == 0) {
+    // Start a new row for every third item
+    uniList.append('<div class="row">');
+  }
+
+  uniList.append(
+    `<div class="col-md-4">
+      <div class="card mb-3">
+        <img src="${food.Image}" class="card-img-top" alt="${food.name}">
+        <div class="card-body">
+          <h5 class="card-title">${food.name}</h5>
+          <p class="card-text">${food.price}</p>
+          <a href="https://65f27572034bdbecc764d644.mockapi.io/api/meat/meat/${food.id}" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+    </div>`
+  );
+
+  if ((index + 1) % 3 == 0 || index == foods.length - 1) {
+    // Close the row for every third item or when reaching the end
+    uniList.append('</div>');
+  }
+});
+
           },
           error: function (error) {
             console.error("Error fetching stories:", error);
@@ -129,6 +150,11 @@
           var price = $("#update-price").val();
           var image = $("#update-image").val();
           updateFood(id, name, price, image);
+        });
+         $("#delete-item").click(function () {
+          var id = $("#delete-id").val();
+         
+          deleteFood(id)
         });
       });
     </script>
