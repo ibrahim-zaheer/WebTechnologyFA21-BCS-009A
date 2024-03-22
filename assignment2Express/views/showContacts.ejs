@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <ul>
+        <% contacts.forEach(function(contact) { %>
+            <li>
+                <strong>Name:</strong> <%= contact["Full name"] %><br>
+                <strong>Age:</strong> <%= contact.Age %><br>
+                <strong>CNIC:</strong> <%= contact.CNIC %><br>
+                <strong>Location:</strong> <%= contact.Location %><br>
+                <strong>Meat Preference:</strong> <%= contact.Meat %><br>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
