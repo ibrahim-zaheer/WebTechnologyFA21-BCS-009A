@@ -51,7 +51,7 @@
 //   })
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3001;
 const path = require('path');
 const session = require("express-session");
 const mongoose = require('mongoose');
@@ -86,7 +86,4 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, "static")));
 app.use('/', require(path.join(__dirname, 'routes/meat.js')));
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
+app.use(express.static(path.join(__dirname, "uploads")));

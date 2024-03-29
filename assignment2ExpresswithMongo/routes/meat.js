@@ -4,8 +4,8 @@ const path = require('path')
 const blogs  = require('../data/blog')
 const foods  = require('../data/food')
 const contactUs = require('../data/contactUS')
-const meat = require('../models/meat')
-const Meat = require('../models/meat')
+const meat = require('../models/meatModel')
+const Meat = require('../models/meatModel')
 const multer = require("multer")
 
 router.get('/',(req,res)=>{
@@ -58,28 +58,51 @@ var storage = multer.diskStorage({
         cb(null,'./uploads')
     }
     ,
-    filename: function(res,file,cb){
-        cb(null,file.fieldname + "_" + Date.now()+"_"+file.originalname);
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
     }
+    
 })
 var upload = multer({
     storage:storage,
 //referring to name image written in userform
 }).single("image");
 
+// for json data
+// router.get("/get_meat",async function(req,res){
+//     let meat = await Meat.find()
+//     res.json(meat)
+// })
+
+// GET route to render the meat list
+router.get("/get_meat", async function(req, res) {
+    try {
+        let meat = await Meat.find();
+        res.render("meatList", { meat: meat });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// this get and post method is written together to allow us to get form and post that form
+// to review data we have to create another get end point to recieve that data
 // GET route to render the meat form
 router.get("/add_meat", (req, res) => {
     res.render("meatForm", { title: "Add Meat" });
 });
-
 // POST route to handle form submission and add meat data
 router.post("/add_meat", upload, (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+    }
+
     const newMeat = new Meat({
         name: req.body.name,
         quantity: req.body.quantity,
         price: req.body.price,
-        image: req.file.fieldname
+        image: req.file.fieldname // Use req.file.filename instead of req.file.fieldname
     });
+
     newMeat.save()
         .then(() => {
             req.session.message = {
@@ -89,8 +112,28 @@ router.post("/add_meat", upload, (req, res) => {
             res.redirect('/');
         })
         .catch((err) => {
-            res.json({ message: err.message });
+            res.status(500).json({ message: err.message });
         });
 });
+
+//for updating the data
+router.get("/get_meat/:id", async (req, res) => {
+    let meat = await Meat.findById(req.params.id);
+    return res.send(meat);
+  });
+  router.put("/get_meat/:id", async (req, res) => {
+    let meat = await Meat.findById(req.params.id);
+    meat.name = req.body.name
+    meat.quantity =  req.body.quantity,
+    meat.price =  req.body.price,
+    await meat.save();
+    return res.send(meat);
+  });
+// for deleting the data
+router.delete("/get_meat/:id", async (req, res) => {
+    let meat = await Meat.findByIdAndDelete(req.params.id);
+    
+    return res.send(meat);
+  });
 
 module.exports = router;
