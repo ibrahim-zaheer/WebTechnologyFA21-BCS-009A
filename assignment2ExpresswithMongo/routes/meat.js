@@ -7,6 +7,7 @@ const contactUs = require('../data/contactUS')
 const meat = require('../models/meatModel')
 const Meat = require('../models/meatModel')
 const multer = require("multer")
+const Order = require('../models/orderModel')
 
 router.get('/',(req,res)=>{
     // res.sendFile(path.join(__dirname,"../templates/index.html"))
@@ -135,5 +136,39 @@ router.delete("/get_meat/:id", async (req, res) => {
     
     return res.send(meat);
   });
+
+
+// for placing the order:
+router.post('/insertOrder', async (req, res) => {
+    try {
+        const { name, phoneNumber, email, outlet, address, animal, quantity, deliveryDay, message } = req.body;
+
+        // Create a new order object
+        const newOrder = new Order({
+            name,
+            phoneNumber,
+            email,
+            outlet,
+            address,
+            animal,
+            quantity,
+            deliveryDay,
+            message
+        });
+
+        // Save the new order to the database
+        await newOrder.save() .then(() => {
+            req.session.message = {
+                type: 'success',
+                message: 'user added successfully'
+            };
+            res.redirect('/');
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 module.exports = router;
