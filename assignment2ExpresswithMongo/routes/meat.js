@@ -8,6 +8,10 @@ const meat = require('../models/meatModel')
 const Meat = require('../models/meatModel')
 const multer = require("multer")
 const Order = require('../models/orderModel')
+const Userinfo = require('../models/userModel')
+
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 router.get('/',(req,res)=>{
     // res.sendFile(path.join(__dirname,"../templates/index.html"))
@@ -170,5 +174,31 @@ router.post('/insertOrder', async (req, res) => {
     }
 });
 
+router.get("/add_user", (req, res) => {
+    res.render("userForm", { title: "Add User" });
+});
+// POST route to handle form submission and add meat data
+router.post("/add_user", upload, (req, res) => {
+    
+
+    const userInfo = new Userinfo({
+        name: req.body.name,
+        phonenumbers: req.body.phonenumbers,
+        email: req.body.email,
+        passwords: req.body.passwords // Use req.file.filename instead of req.file.fieldname
+    });
+
+    userInfo.save()
+        .then(() => {
+            req.session.message = {
+                type: 'success',
+                message: 'User added successfully'
+            };
+            res.redirect('/');
+        })
+        .catch((err) => {
+            res.status(500).json({ message: err.message });
+        });
+});
 
 module.exports = router;
