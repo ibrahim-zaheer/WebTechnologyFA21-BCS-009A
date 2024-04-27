@@ -33,10 +33,13 @@ app.use((req, res, next) => {
 });
 
 app.set('view engine', 'ejs');
-
+app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('public'));
 // we are going to use it as urls.py as we did in python django projects
-app.use('/', require(path.join(__dirname, 'routes/api/meatInformation.js')));
+app.use('/', require(path.join(__dirname, 'routes/routes.js')));
 // app.use('/', require(path.join(__dirname, 'routes/api/order')));
 // app.use('/', require(path.join(__dirname, 'routes/api/userInformation')));
 app.use(express.static(path.join(__dirname, "uploads")));
+// Specify the default layout
+app.set('layout', 'layouts/base');
