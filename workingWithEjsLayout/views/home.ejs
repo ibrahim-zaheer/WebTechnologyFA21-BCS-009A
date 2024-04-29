@@ -1,7 +1,12 @@
-
-<div>
-    
-<% include('./components/brandCarasoul'); %>
-</div>
+<!-- 
 <h2>Welcome to the Home Page!</h2>
-<p>This is the content of the home page.</p>
+<p>This is the content of the home page. and please visit us</p> -->
+
+<!-- Inside home.ejs -->
+<%- include('./components/Cards/makeUsUniqueCard'); %>
+<%- include('./components/Cards/AboutOurFirmCard'); %>
+<%- include('./components/Form/placingOrderForm'); %>
+<%- include('./components/Cards/InformationCard'); %>
+<div>
+    <%- include('./components/Cards/whyTrustUs'); %>
+</div>

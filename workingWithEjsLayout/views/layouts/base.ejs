@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-     <!-- Bootstrap CSS -->
-     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+   
      <!-- Font Awesome for brand logos (optional) -->
      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
    </head>
@@ -33,16 +33,64 @@
   
   </section>
   <div class="text">
-    <p><h2>Sticky Navigation Bar</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed culpa minus ducimus nostrum aspernatur qui odit assumenda consectetur dolorum autem. Impedit aperiam nemo fuga numquam molestias sit quaerat quae doloribus est facilis ab, asperiores voluptatum dolore? Dignissimos porro corporis, veniam esse animi pariatur vitae quas est, amet minima et ratione tenetur earum officiis fugiat saepe eius nisi dolor, iusto voluptas obcaecati nam! Facere excepturi quibusdam, magni fugit quia, accusantium eum dolorum id dolores. Enim consectetur tempore distinctio, natus dolore incidunt. Repellendus ut natus, sit at inventore, reiciendis. Praesentium, tempore. Laborum consequuntur, illo voluptatem nobis rem molestias corporis laboriosam sint officiis, inventore atque, repellendus. Blanditiis molestiae minima consequuntur et accusamus illum, laboriosam placeat perferendis sed. Maiores eos laboriosam quas eius ratione dignissimos laborum doloremque, praesentium obcaecati cum consectetur magnam accusamus, esse, corporis aliquid pariatur mollitia corrupti cupiditate ipsa iure enim provident. Earum, voluptate! Similique quas veniam voluptas, maiores perspiciatis error voluptatum!</p>
-    <br><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima libero consequatur necessitatibus voluptatibus vel, ut asperiores magnam velit, eum veritatis natus, dolorum sit ipsum quidem laborum! Facilis officia itaque, explicabo harum illum, repellat nihil corporis! Dolor, libero vero, consequuntur sed necessitatibus corporis. Facilis autem natus animi pariatur quaerat rerum nemo quibusdam veritatis provident error nostrum ratione dolore officiis non amet, quidem dolores eaque sint blanditiis odio porro ut, quam soluta. Necessitatibus, aperiam eum doloremque voluptate qui aliquid consequatur aspernatur debitis expedita unde vitae quia officiis, delectus, possimus ratione ex rerum dignissimos maxime molestiae asperiores. Tempora recusandae debitis exercitationem quo facere reprehenderit tenetur, dolore laboriosam repellat modi. Magnam ratione iste quo perspiciatis explicabo deserunt temporibus quaerat inventore quod accusantium atque, dolores commodi nobis distinctio, fugit illum, soluta quisquam est in omnis! Recusandae incidunt voluptatem, consequuntur doloremque! Nisi incidunt, iure quidem dolores odit sint, ut quam. Ipsum, maiores doloremque velit numquam quisquam.</p>
+    <p><h2>About Us</h2>
+      <%- include('../components/Cards/AboutUSCard'); %>
+  </div>
+  <div class="text">
+    <h2 class="text-center">Our Customers</h2>
+      <%- include('../components/notableCustomers'); %>
   </div>
    <!-- Main Content -->
    <main>
-    <!-- Content specific to each page will go here -->
+   
+ 
     <%- body %>
-    <%- include('../components/brandCarasoul'); %>
+    
 </main>
+<footer class="bg-dark text-white">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4">
+              <h5>Company History</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla aliquam purus a arcu ullamcorper, nec dictum quam fermentum.</p>
+          </div>
+          <div class="col-md-4">
+              <h5>Contact Us</h5>
+              <div class="row">
+                  <div class="col">
+                      <p>Phone: 123-456-7890</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      <p>Address: 123 Main Street, City, Country</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      <p>Social Media:</p>
+                      <ul class="list-inline">
+                          <li class="list-inline-item"><a href="#">Facebook</a></li>
+                          <li class="list-inline-item"><a href="#">Twitter</a></li>
+                          <li class="list-inline-item"><a href="#">Instagram</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <h5>Subscribe to Newsletter</h5>
+              <form>
+                  <div class="mb-3">
+                      <label for="emailInput" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Subscribe</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</footer>
+
 
   <script>
   let nav = document.querySelector("nav");
