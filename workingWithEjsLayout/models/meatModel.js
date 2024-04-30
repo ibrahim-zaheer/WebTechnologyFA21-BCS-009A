@@ -13,6 +13,10 @@ const meatSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    image: {
+        type: String,
+        required: false
+    },
    
     date: {
         type: Date,

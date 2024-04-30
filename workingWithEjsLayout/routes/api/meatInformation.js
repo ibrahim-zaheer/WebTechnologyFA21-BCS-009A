@@ -5,6 +5,16 @@ let Meat = require("../../models/meatModel");
 router.get('/', (req, res) => {
     res.send("Hello")
   });
+
+  //display all meat products
+  router.get("/list", async function(req, res) {
+    try {
+        let meat = await Meat.find();
+        res.render("meatList", { meat: meat });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}); 
   
 
 router.get("/api/meat", async function(req, res) {
