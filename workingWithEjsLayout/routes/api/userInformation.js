@@ -1,6 +1,31 @@
 const express = require("express");
 let router = express.Router();
 let Meat = require("../../models/meatModel");
+let ContactUs = require("../../models/contactUsModel")
+
+router.post('/insertContact', async (req, res) => {
+    try {
+        const { name, phoneNumber, email, message } = req.body;
+
+        // Create a new order object
+        const newContact = new ContactUs({
+            name,
+            phoneNumber,
+            email,
+            message
+        });
+
+        // Save the new order to the database
+        await newContact.save();
+
+        // Redirect to home page after successful order insertion
+        res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 router.get('/', (req, res) => {
     res.send("Hello")

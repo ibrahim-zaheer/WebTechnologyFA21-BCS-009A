@@ -30,6 +30,7 @@ const path = require("path");
 // Mounting the routers
 router.use('/api/meat', require(path.join(__dirname, './api/meatInformation')));
 router.use('/order', require(path.join(__dirname, './api/order')));
+router.use('/user', require(path.join(__dirname, './api/userInformation')));
 
 // Define your routes
 router.get('/', (req, res) => {

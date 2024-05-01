@@ -143,14 +143,67 @@ router.get("/", async function (req, res) {
 router.get("/hello", (req, res) => {
     res.send("Hello from the order router!");
 });
-router.get("/hello/bye", (req, res) => {
-    res.send("Hello from the order order router!");
-});
 
-// Error handling middleware
-router.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
+// This route handles the insertion of orders
+// router.post('/insertOrder', async (req, res) => {
+//     try {
+//         const { name, phoneNumber, email, outlet, address, animal, quantity, deliveryDay, message } = req.body;
+
+//         // Create a new order object
+//         const newOrder = new Order({
+//             name,
+//             phoneNumber,
+//             email,
+//             outlet,
+//             address,
+//             animal,
+//             quantity,
+//             deliveryDay,
+//             message
+//         });
+
+//         // Save the new order to the database
+//         await newOrder.save();
+
+//         // Redirect to home page after successful order insertion
+//         res.redirect('/');
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Server Error');
+//     }
+// });
+
+// // Error handling middleware
+// router.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).send('Something went wrong!');
+// });
+router.post('/insertOrder', async (req, res) => {
+    try {
+        const { name, phoneNumber, email, outlet, address, animal, quantity, deliveryDay, message } = req.body;
+
+        // Create a new order object
+        const newOrder = new Order({
+            name,
+            phoneNumber,
+            email,
+            outlet,
+            address,
+            animal,
+            quantity,
+            deliveryDay,
+            message
+        });
+
+        // Save the new order to the database
+        await newOrder.save();
+
+        // Redirect to home page after successful order insertion
+        res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
 });
 
 module.exports = router;
