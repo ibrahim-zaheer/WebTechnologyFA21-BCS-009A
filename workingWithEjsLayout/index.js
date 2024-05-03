@@ -5,7 +5,8 @@ const port = 3001;
 const path = require('path');
 const session = require("express-session");
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 mongoose.connect("mongodb://127.0.0.1:27017/meat", {
     useNewUrlParser: true,
     useUnifiedTopology: true

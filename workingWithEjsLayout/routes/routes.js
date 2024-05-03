@@ -34,7 +34,7 @@ router.use('/user', require(path.join(__dirname, './api/userInformation')));
 
 // Define your routes
 router.get('/', (req, res) => {
-    res.render("home");
+    res.render("home",{ authenticated: false});
 });
 
 router.get('/meat', (req, res) => {

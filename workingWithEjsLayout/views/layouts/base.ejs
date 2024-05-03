@@ -26,6 +26,14 @@
         <li><a href="#">Skills</a></li>
         <li><a href="#">Services</a></li>
         <li><a href="#">Contact</a></li>
+        <% if (!authenticated) { %>
+          <li><a href="/user/login">Login</a></li>
+          <li><a href="/user/signup">Signup</a></li>
+      <% }
+      else { %>
+        <p>User is not authenticated</p>
+        <!-- Show non-authenticated content, like login/signup options -->
+    <% } %>
       </ul>
     </div>
   </nav>
