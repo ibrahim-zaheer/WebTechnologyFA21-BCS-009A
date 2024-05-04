@@ -22,28 +22,83 @@ router.post('/signup', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+    
+    //const user = await Userinfo.findOne({ email: req.body.email });
+    
 
     try {
+        const user = await Userinfo.findOne({ email: req.body.email });
+        if (user) {
+            return res.status(400).json({ errors: [{ msg: 'User already exist' }] });
+        }
+        else{
         // Generate hash for password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.passwords, salt);
 
         // Create user in database
-        await User.create({
+        await Userinfo.create({
             name: req.body.name,
             passwords: hashedPassword,
             phonenumbers: req.body.phonenumbers,
             email: req.body.email
         });
 
-        res.json({ success: true });
+        //res.json({ success: true });
+        res.redirect('/user/login');
+    }
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Server Error' });
     }
 });
 
-// Route for logging in a user
+router.get('/signup',(req,res)=>{
+res.render("signup",{layout:false});
+})
+
+// // Route for logging in a user
+// router.post('/login', [
+//     // Validate user input
+//     body('email').isEmail(),
+//     body('passwords').isLength({ min: 5 })
+// ], async (req, res) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() });
+//     }
+
+//     try {
+//         const user = await Userinfo.findOne({ email: req.body.email });
+//         if (!user) {
+//             return res.status(400).json({ errors: [{ msg: 'User doesnot exist' }] });
+//         }
+
+//         // Compare passwords
+//         const isMatch = await bcrypt.compare(req.body.passwords, user.passwords);
+//         if (!isMatch) {
+//             return res.status(400).json({ errors: [{ msg: 'Password is wrong' }] });
+//         }
+
+//         // Create and return JWT token
+//         const payload = {
+//             user: {
+//                 id: user.id
+//             }
+//         };
+
+//         jwt.sign(payload, jwtSecret, { expiresIn: '1h' }, (err, token) => {
+//             if (err) throw err;
+//             //res.json({ success: true, token });
+//             res.redirect('/')
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ success: false, message: 'Server Error' });
+//     }
+// });
+
+
 router.post('/login', [
     // Validate user input
     body('email').isEmail(),
@@ -55,16 +110,19 @@ router.post('/login', [
     }
 
     try {
-        const user = await User.findOne({ email: req.body.email });
+        const user = await Userinfo.findOne({ email: req.body.email });
         if (!user) {
-            return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
+            return res.status(400).json({ errors: [{ msg: 'User doesnot exist' }] });
         }
 
         // Compare passwords
         const isMatch = await bcrypt.compare(req.body.passwords, user.passwords);
         if (!isMatch) {
-            return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
+            return res.status(400).json({ errors: [{ msg: 'Password is wrong' }] });
         }
+
+        // Set authenticated to true in session
+        req.session.authenticated = true;
 
         // Create and return JWT token
         const payload = {
@@ -75,7 +133,8 @@ router.post('/login', [
 
         jwt.sign(payload, jwtSecret, { expiresIn: '1h' }, (err, token) => {
             if (err) throw err;
-            res.json({ success: true, token });
+            //res.json({ success: true, token });
+            res.redirect('/');
         });
     } catch (error) {
         console.error(error);
@@ -83,8 +142,8 @@ router.post('/login', [
     }
 });
 router.get('/login', (req, res) => {
-    // Render your login page here
-    res.render('login'); // Assuming you have a login page named "login.ejs"
+    
+    res.render('login',{layout:false}); 
   });
 
 

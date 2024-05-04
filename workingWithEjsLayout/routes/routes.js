@@ -32,9 +32,14 @@ router.use('/api/meat', require(path.join(__dirname, './api/meatInformation')));
 router.use('/order', require(path.join(__dirname, './api/order')));
 router.use('/user', require(path.join(__dirname, './api/userInformation')));
 
+// // Define your routes
+// router.get('/', (req, res) => {
+//     res.render("home",{ authenticated: false});
+// });
+
 // Define your routes
 router.get('/', (req, res) => {
-    res.render("home",{ authenticated: false});
+    res.render("home", { authenticated: req.session.authenticated || false });
 });
 
 router.get('/meat', (req, res) => {

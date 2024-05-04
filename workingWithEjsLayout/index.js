@@ -32,7 +32,14 @@ app.use((req, res, next) => {
     delete req.session.message;
     next();
 });
-
+const isAuthenticated = (req, res, next) => {
+    // Check if user is authenticated, set authenticated to true or false accordingly
+    const authenticated = req.user ? true : false;
+    res.locals.authenticated = authenticated;
+    next();
+};
+app.use(isAuthenticated);
+// app.use(session);
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, "public")));
