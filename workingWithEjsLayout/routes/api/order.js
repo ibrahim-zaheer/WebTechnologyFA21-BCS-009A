@@ -206,4 +206,13 @@ router.post('/insertOrder', async (req, res) => {
     }
 });
 
+router.get("/chart",async (req,res)=>{
+    try {
+        let order = await Order.find();
+        res.render("components/Chart/order/orderData", { order:order });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
 module.exports = router;
