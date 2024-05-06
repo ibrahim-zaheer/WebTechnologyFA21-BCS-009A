@@ -214,5 +214,14 @@ router.get("/chart",async (req,res)=>{
         res.status(500).json({ message: error.message });
     }
 })
+// router.get("/chart", async (req, res) => {
+//     try {
+//         const orders = await Order.find();
+//         res.render("components/Chart/order/orderData", { orders: JSON.stringify(orders) }); // Convert orders to JSON
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// })
+
 
 module.exports = router;
