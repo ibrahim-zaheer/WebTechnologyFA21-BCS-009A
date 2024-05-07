@@ -17,14 +17,25 @@ router.get('/', (req, res) => {
 }); 
   
 
+// router.get("/api/meat", async function(req, res) {
+//     try {
+//         let meat = await Meat.find();
+//         res.render("meat/meatList", { meat: meat });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 router.get("/api/meat", async function(req, res) {
     try {
-        let meat = await Meat.find();
-        res.render("meat/meatList", { meat: meat });
+        // Assuming imageUrl is retrieved from the query parameter or session
+        const imageUrl = req.query.imageUrl; // or req.session.imageUrl, depending on your implementation
+        
+        res.render("components/Form/meatForm", { imageUrl: imageUrl });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 router.post("/api/meat", async (req, res) => {
    
@@ -33,6 +44,7 @@ router.post("/api/meat", async (req, res) => {
         name: req.body.name,
         quantity: req.body.quantity,
         price: req.body.price,
+        image:req.body.image
 
     });
 
