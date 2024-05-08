@@ -44,7 +44,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/meat', (req, res) => {
-    res.render("bye");
+    res.render("bye",{ authenticated: req.session.authenticated || false });
 });
 
 // Error handling middleware

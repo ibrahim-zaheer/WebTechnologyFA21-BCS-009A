@@ -145,6 +145,10 @@ router.get('/login', (req, res) => {
     
     res.render('login',{layout:false}); 
   });
+  router.get('/logout', (req, res) => {
+    req.session.authenticated = false;
+    res.redirect("/")
+  });
 
 
 // router.post('/createUser', // username must be an email
@@ -231,7 +235,7 @@ router.post('/insertContact', async (req, res) => {
         await newContact.save();
 
         // Redirect to home page after successful order insertion
-        res.redirect('/');
+        res.redirect('/',{ authenticated: req.session.authenticated });
     } catch (error) {
         console.error(error);
         res.status(500).send('Server Error');
@@ -240,7 +244,7 @@ router.post('/insertContact', async (req, res) => {
 
 
 router.get('/', (req, res) => {
-    res.send("Hello")
+    res.send("Hello",{ authenticated: req.session.authenticated })
   });
   
 

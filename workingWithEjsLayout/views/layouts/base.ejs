@@ -29,16 +29,18 @@
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Skills</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
-        <% if (!authenticated) { %>
-          <li><a href="/user/login">Login</a></li>
-          <li><a href="/user/signup">Signup</a></li>
-      <% }
-      else { %>
-        <p>User is authenticated</p>
+        <li><a href="/api/meat/api/meat">Services</a></li>
+        <li><a href="/meat">Contact</a></li>
+      
+
+    
+            <% if (authenticated) { %>
+              <li><a href="/user/logout">Logout</a></li>
         <!-- Show non-authenticated content, like login/signup options -->
-    <% } %>
+            <% } else { %>
+              <li><a href="/user/login">Login</a></li>
+          <li><a href="/user/signup">Signup</a></li>
+            <% } %>
       </ul>
     </div>
   </nav>

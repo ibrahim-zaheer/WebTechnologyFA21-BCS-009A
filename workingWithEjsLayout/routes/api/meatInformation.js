@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   router.get("/list", async function(req, res) {
     try {
         let meat = await Meat.find();
-        res.render("meatList", { meat: meat });
+        res.render("meatList", { meat: meat,authenticated: req.session.authenticated });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
