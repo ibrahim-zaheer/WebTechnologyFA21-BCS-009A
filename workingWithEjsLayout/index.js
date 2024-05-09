@@ -77,6 +77,9 @@ const session = require("express-session");
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+let cookieParser = require("cookie-parser");
+
+
 
 mongoose.connect("mongodb://127.0.0.1:27017/meat", {
     useNewUrlParser: true,
@@ -88,6 +91,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/meat", {
     });
 }).catch(err => console.log(err));
 
+const { cookie }= require("express/lib/response");
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session({

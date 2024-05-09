@@ -214,6 +214,12 @@ router.get("/chart",async (req,res)=>{
         res.status(500).json({ message: error.message });
     }
 })
+router.get("/cart", async (req, res) => {
+    let cart = req.cookies.cart;
+    if (!cart) cart = [];
+    let order = await Order.find({ _id: { $in: cart } });
+    res.render("cart", { order });
+  });
 // router.get("/chart", async (req, res) => {
 //     try {
 //         const orders = await Order.find();
