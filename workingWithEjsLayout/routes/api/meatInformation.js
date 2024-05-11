@@ -16,6 +16,21 @@ router.get('/', (req, res) => {
     }
 }); 
   
+router.get("/cart", async (req, res) => {
+    let cart = req.cookies.cart;
+    if (!cart) cart = [];
+    let meat = await Meat.find({ _id: { $in: cart } });
+    res.render("cart", { meat:meat });
+  });
+  router.get("/cart/:id", async (req, res) => {
+    let cart = req.cookies.cart;
+    if (!cart) cart = [];
+    cart.push(req.params.id);
+    res.cookie("cart", cart);
+  
+    // return res.send(req.cookies);
+    return res.redirect("/");
+  });
 
 // router.get("/api/meat", async function(req, res) {
 //     try {
