@@ -21,7 +21,16 @@ const slicedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * it
           </div>
           <p class="card-text">Quantity: <%= item[quantityField] %></p> -->
           <p class="card-text">Price: <%= item[priceField] %></p>
-          <a href="/api/meat/cart/<%= item._id %>">Add to Cart</a>
+          
+          <!-- <a href="/api/meat/cart/<%= item._id %>">Add to Cart</a> -->
+
+           <!-- Input field for quantity -->
+           <form action="/api/meat/cart/<%= item._id %>" method="GET">
+            <input type="number" name="quantity" value="1" min="1">
+            <button type="submit">Add to Cart</button>
+            
+          </form>
+
 
         </div>
       </div>
@@ -43,4 +52,3 @@ const slicedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * it
       <% } %>
     </ul>
   </nav>
-  

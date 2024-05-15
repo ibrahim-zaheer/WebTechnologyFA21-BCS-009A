@@ -1,6 +1,7 @@
 const express = require("express");
 let router = express.Router();
 let Meat = require("../../models/meatModel");
+const mongoose = require("mongoose");
 
 router.get('/', (req, res) => {
     res.send("Hello")
@@ -16,30 +17,68 @@ router.get('/', (req, res) => {
     }
 }); 
   
+
 router.get("/cart", async (req, res) => {
     let cart = req.cookies.cart;
     if (!cart) cart = [];
-    let meat = await Meat.find({ _id: { $in: cart } });
-    res.render("cart", { meat:meat });
-  });
-  router.get("/cart/:id", async (req, res) => {
+
+    try {
+        // Extract and validate `id` values
+        const ids = cart.map(item => {
+            if (mongoose.Types.ObjectId.isValid(item.id)) {
+                return new mongoose.Types.ObjectId(item.id); // Use 'new' keyword here
+            } else {
+                console.warn(`Invalid ObjectId: ${item.id}`);
+                return null;
+            }
+        }).filter(id => id !== null);
+
+        // Retrieve items from the database based on their IDs
+        const meats = await Meat.find({ _id: { $in: ids } });
+
+        // Add quantities to the retrieved items
+        const meatsWithQuantities = meats.map(meat => {
+            const cartItem = cart.find(item => item.id == meat._id.toString());
+            meat.quantity = cartItem ? cartItem.quantity : 1;
+            return meat;
+        });
+
+        // Render a template with the cart items
+        res.render('cart', { meats: meatsWithQuantities });
+    } catch (error) {
+        console.error("Error fetching cart items:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+router.get("/cart/:id", async (req, res) => {
     let cart = req.cookies.cart;
     if (!cart) cart = [];
-    cart.push(req.params.id);
+
+    const itemId = req.params.id;
+    const quantity = parseInt(req.query.quantity, 10); // Get the quantity from the query parameters
+
+    if (isNaN(quantity) || quantity < 1) {
+        return res.status(400).send("Invalid quantity");
+    }
+
+    const existingItemIndex = cart.findIndex(item => item.id === itemId);
+
+    if (existingItemIndex !== -1) {
+        // If the item already exists in the cart, increment its quantity
+        cart[existingItemIndex].quantity += quantity;
+    } else {
+        // If the item is not in the cart, add it with the specified quantity
+        cart.push({ id: itemId, quantity: quantity });
+    }
+
     res.cookie("cart", cart);
   
-    // return res.send(req.cookies);
-    return res.redirect("/");
-  });
+    return res.redirect("/api/meat/list"); // Redirect to the cart page to view the updated cart
+});
 
-// router.get("/api/meat", async function(req, res) {
-//     try {
-//         let meat = await Meat.find();
-//         res.render("meat/meatList", { meat: meat });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
+
+
 router.get("/api/meat", async function(req, res) {
     try {
         // Assuming imageUrl is retrieved from the query parameter or session
@@ -96,4 +135,38 @@ router.delete("/api/meat/:id", async (req, res) => {
     return res.send(meat);
   });
 
+//use this code if cart not work:
+
+
+
+
+    // router.get("/cart", async (req, res) => {
+        //     let cart = req.cookies.cart;
+        //     if (!cart) cart = [];
+        
+        //     try {
+        //         // Retrieve items from the database based on their IDs
+        //         const meats = await Meat.find({ _id: { $in: cart } });
+        
+        //         // Render a template with the cart items
+        //         res.render('cart', { meats });
+        //     } catch (error) {
+        //         console.error("Error fetching cart items:", error);
+        //         res.status(500).send("Internal Server Error");
+        //     }
+        // });
+        
+        
+        // router.get("/cart/:id", async (req, res) => {
+        //     let cart = req.cookies.cart;
+        //     if (!cart) cart = [];
+        
+        //     // const itemId = req.params.id;
+           
+        //     cart.push(req.params.id);
+        
+        //     res.cookie("cart", cart);
+        
+        //     return res.redirect("/api/meat/list");
+        // });
   module.exports = router;

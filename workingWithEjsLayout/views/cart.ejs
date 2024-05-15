@@ -1,23 +1,24 @@
 <table>
     <thead>
         <tr>
-            <th>name</th>
+            <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
+            <!-- Add more columns if needed -->
         </tr>
     </thead>
-    <% meat.forEach(std => { %>
-     <tr>
-         <td><%= std.name %></td>
-         <td></td>
-         <td></td>
-     </tr>
-
-    <% }) %>
+    <tbody>
+        <% meats.forEach(meat => { %>
+            <tr> 
+                <td><%= meat.name %></td>
+                <td><%= meat.price %></td>
+                <td><%= meat.quantity %></td>
+                
+                <!-- Add more columns if needed -->
+            </tr>
+        <% }); %>
+    </tbody>
     <tfoot>
-        <tr>
-            <td colspan="2">Total</td>
-            <td>Amount</td>
-        </tr>
+        <!-- Add footer rows if needed -->
     </tfoot>
 </table>
