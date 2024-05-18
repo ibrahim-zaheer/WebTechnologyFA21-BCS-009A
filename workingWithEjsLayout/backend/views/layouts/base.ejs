@@ -20,6 +20,7 @@
 
    </head>
 <body>
+  <div class="unique-navbar">
   <nav>
     <div class="nav-content">
       <div class="logo">
@@ -40,8 +41,10 @@
               <% if (adminAuthenticated) { %>
                   <li><a href="/user/logout">Logout</a></li>
                   <li><a href="/user/logout">Admin User</a></li>
+                  <li><a href="/admin/upload">Add a product</a></li>
               <% } else { %>
                   <li><a href="/user/logout">Logout</a></li>
+                  <li><a href="/api/meat/cart">Cart</a></li>
               <% } %>
           <% } else { %>
               <li><a href="/user/login">Login</a></li>
@@ -51,6 +54,7 @@
       </ul>
     </div>
   </nav>
+</div>
   <section class="home">
   
   </section>
@@ -116,6 +120,10 @@
         nav.classList.remove("sticky");
       }
     }
+
+    
+   
+
   </script>
 
 </body>

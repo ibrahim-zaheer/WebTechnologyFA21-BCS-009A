@@ -7,13 +7,19 @@
   text-decoration: none;
   font-family: 'Ubuntu', sans-serif;
 }
-nav{
+/* Wrap the CSS in a unique class */
+.unique-navbar nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   padding: 20px;
   transition: all 0.4s ease;
+}
+nav .nav-links a {
+  visibility: visible;
+  font-size: 18px;
+  font-weight: 500;
 }
 nav.sticky{
   padding: 15px 20px;

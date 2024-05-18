@@ -4,6 +4,8 @@ const multer = require('multer');
 const cloudinary = require("../../utils/cloudinary");
 let Meat = require("../../models/meatModel");
 // Configure Multer for file upload
+
+
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -18,7 +20,7 @@ router.get('/upload', function (req, res) {
 });
 router.post('/upload', upload.single('image'), function (req, res) {
     cloudinary.uploader.upload(req.file.path, function (err, result) {
-      if (err) {
+      if (err ) {
         console.log(err);
         return res.status(500).json({
           success: false,
