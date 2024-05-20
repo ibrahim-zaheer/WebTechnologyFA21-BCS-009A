@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Total Calculation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        /* Your existing styles here */
+    </style>
+</head>
+<body>
+
+
 <style>
    
 
@@ -282,170 +297,128 @@
         }
     }
     </style>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-            <!-- Add more columns if needed -->
-        </tr>
-    </thead>
-    <tbody>
-        <% meats.forEach(meat => { %>
-            <tr> 
-                <td><%= meat.name %></td>
-                <td><%= meat.price %></td>
-                <td><%= meat.quantity %></td>
-                <td><%= meat.price * meat.quantity %></td>
-            </tr>
-        <% }); %>
-        <tr>
-            <th>Total Bill:</th>
-            <td colspan="3" id="total-bill-cell"></td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <!-- Add footer rows if needed -->
-    </tfoot>
-</table>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Ensure meats array is correctly passed from the server-side to the client-side script
-        const meats = <%= JSON.stringify(meats) %>;
-        console.log("Meats array:", meats); // Log the meats array to verify its content
 
-        // Calculate the total bill
-        let totalBill = meats.reduce((sum, meat) => sum + (meat.price * meat.quantity), 0);
-        console.log("Total Bill:", totalBill); // Log the total bill to verify the calculation
 
-        // Update the table with the calculated total bill
-        const totalBillCell = document.getElementById('total-bill-cell');
-        if (totalBillCell) {
-            totalBillCell.textContent = totalBill;
-        } else {
-            console.error("Total Bill cell not found");
-        }
-    });
-</script>
 
 
 
 
 
 <div class="wrapper">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex flex-column">
-                <div class="h3">My lists</div>
-                <div class="text-uppercase">6 sublists</div>
-            </div>
-            <div class="ml-auto btn"><span class="fas fa-cog"></span></div>
-            <div class="btn" id="sub">
-                + Add sublist
-            </div>
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex flex-column">
+            <div class="h3">My lists</div>
+            <div class="text-uppercase">6 sublists</div>
         </div>
-        <div class="notification alert alert-dismissible fade show text-white d-flex align-items-center my-3 text-justify"
-            role="alert">
-            <span class="far fa-bell pr-2"></span>
-            You've got 3 new items on your list and 7 new comments check it out!
-            <button type="button" class="close text-white ml-auto" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">
-                    Ok, Thanks
-                </span>
-            </button>
-        </div>
-        <div id="table" class="bg-white rounded">
-            <div class="d-md-flex align-items-md-center px-3 pt-3">
-                <div class="d-flex flex-column">
-                    <div class="h4 font-weight-bold">Products lists</div>
-                    
-                </div>
-                
-            </div>
-            <hr>
-            <div class="table-responsive">
-                <table class="table activitites">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-uppercase header">item</th>
-                            <th scope="col" class="text-uppercase">Quantity</th>
-                            <th scope="col" class="text-uppercase">price each</th>
-                            <th scope="col" class="text-uppercase">total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <% meats.forEach(meat => { %>
-                            <tr> 
-                                <td><%= meat.name %></td>
-                                <td><%= meat.price %></td>
-                                <td><%= meat.quantity %></td>
-                                <td><%= meat.price * meat.quantity %></td>
-                            </tr>
-                        <% }); %>
-                    </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-            <hr class="items">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-uppercase header">item</th>
-                            <th scope="col" class="text-uppercase">Quantity</th>
-                            <th scope="col" class="text-uppercase">price each</th>
-                            <th scope="col" class="text-uppercase">total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="item">
-                                <div class="d-flex align-items-start">
-                                    <img src="https://www.freepnglogos.com/uploads/corona-png-logo/corona-bottle-transparent-png-logo-27.png"
-                                        alt="">
-                                    <div>
-                                        Wine Bottle Shaped in Gift Base
-                                        <div class="text-uppercase new"><span class="fas fa-star"></span>new</div>
-                                        <div><a href="#"><span class="red text-uppercase"><span
-                                                        class="fas fa-comment pr-1"></span>add a comment</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>120</td>
-                            <td class="d-flex flex-column">$21.40
-                            </td>
-                            <td class="font-weight-bold">
-                                $249
-                                <div class="close">&times;</div>
-                                <button class="d-flex justify-content-end align-items-end btn border">+ Add to
-                                    cart</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between">
-            <div class="text-muted">
-                <button class="btn" type="button" data-toggle="collapse" data-target="#table" aria-expanded="false"
-                    aria-controls="table">
-                    Hide
-                    <span class="fas fa-minus"></span>
-                </button>
-            </div>
-            <div class="d-flex flex-column justify-content-end align-items-end">
-                <div class="d-flex px-3 pr-md-5 py-1 subtotal">
-                    <div class="px-4">Subtotal</div>
-                    <div class="h5 font-weight-bold px-md-2">$1,340</div>
-                </div>
-                <div class="text-muted tag">
-                    +add all the items to cart <span class="fas fa-shopping-cart pl-1"></span>
-                </div>
-            </div>
+        <div class="ml-auto btn"><span class="fas fa-cog"></span></div>
+        <div class="btn" id="sub">
+            + Add sublist
         </div>
     </div>
+    <div class="notification alert alert-dismissible fade show text-white d-flex align-items-center my-3 text-justify"
+        role="alert">
+        <span class="far fa-bell pr-2"></span>
+        You've got 3 new items on your list and 7 new comments check it out!
+        <button type="button" class="close text-white ml-auto" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">
+                Ok, Thanks
+            </span>
+        </button>
+    </div>
+    <div id="table" class="bg-white rounded">
+        <div class="d-md-flex align-items-md-center px-3 pt-3">
+            <div class="d-flex flex-column">
+                <div class="h4 font-weight-bold">Products lists</div>
+            </div>
+        </div>
+        <hr>
+        <div class="table-responsive">
+            <table class="table activitites">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-uppercase header">Item</th>
+                        <th scope="col" class="text-uppercase">Price each</th>
+                        <th scope="col" class="text-uppercase">Quantity</th>
+                        <th scope="col" class="text-uppercase">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let subtotal = 0; %>
+                    <% meats.forEach((meat, index) => { %>
+                        <tr>
+                            <td><%= meat.name %></td>
+                            <td><%= meat.price %></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <input type="number" id="quantity-<%= index %>" class="form-control text-center quantity-input" data-index="<%= index %>" value="<%= meat.quantity %>" min="1" aria-label="quantity">
+                                </div>
+                            </td>
+                            <td id="total-<%= index %>"><%= meat.price * meat.quantity %></td>
+                        </tr>
+                        <% subtotal += meat.price * meat.quantity; %>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <hr class="items">
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="d-flex flex-column justify-content-end align-items-end">
+            <div class="d-flex px-3 pr-md-5 py-1 subtotal">
+                <div class="px-4">Subtotal</div>
+                <div class="h5 font-weight-bold px-md-2" id="subtotal">$<%= subtotal.toFixed(2) %></div>
+            </div>
+            <div class="text-muted tag">
+                +add all the items to cart <span class="fas fa-shopping-cart pl-1"></span>
+            </div>
+           
+        </div>
+        <div>
+            <form action="/webpage/OrderSuccess" method="get" enctype="multipart/form-data">
+              
+                <button type="submit">Plcae Order</button>
+              </form>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Iterate over each quantity input to set the initial data attributes for price
+        $('.quantity-input').each(function() {
+            let index = $(this).data('index');
+            let price = parseFloat($(`#total-${index}`).text()) / parseInt($(this).val());
+            $(this).data('price', price);
+        });
+
+        // Attach input event listener to each quantity input
+        $('.quantity-input').on('input', function() {
+            let index = $(this).data('index');
+            let quantity = parseInt($(this).val());
+            let price = $(this).data('price');
+
+            if (!isNaN(quantity) && quantity > 0) {
+                // Calculate new total for the item
+                let total = price * quantity;
+                $(`#total-${index}`).text(total.toFixed(2));
+
+                // Calculate new subtotal
+                let subtotal = 0;
+                $('.quantity-input').each(function() {
+                    let idx = $(this).data('index');
+                    let qty = parseInt($(this).val());
+                    let prc = $(this).data('price');
+                    subtotal += prc * qty;
+                });
+
+                // Update subtotal display
+                $('#subtotal').text('$' + subtotal.toFixed(2));
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -17,7 +17,12 @@ router.get('/aboutUs', (req, res) => {
   router.get('/contactUs',(req,res)=>{
     res.render("contactUs")
   })
-    
-
+  //when contact is is successfull  
+  router.get('/thankYou',(req,res)=>{
+    res.render("contactSuccess")
+  })
+  router.get('/OrderSuccess',(req,res)=>{
+    res.render("orderSuccess")
+  })
 
 module.exports = router;

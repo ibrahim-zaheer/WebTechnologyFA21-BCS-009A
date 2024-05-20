@@ -237,7 +237,7 @@ router.post('/insertContact', async (req, res) => {
 
         // Redirect to home page after successful order insertion
         // res.redirect('/api/meat',{ authenticated: req.session.authenticated });
-        res.render("contactUs")
+        res.render("contactSuccess")
     } catch (error) {
         console.error(error);
         res.status(500).send('Server Error');
