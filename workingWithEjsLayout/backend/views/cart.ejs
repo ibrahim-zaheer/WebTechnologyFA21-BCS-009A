@@ -375,16 +375,49 @@
            
         </div>
         <div>
-            <form action="/webpage/OrderSuccess" method="get" enctype="multipart/form-data">
-              
-                <button type="submit">Plcae Order</button>
-              </form>
+            <div>
+                <button id="placeOrderBtn">Place Order</button>
+            </div>
         </div>
     </div>
     
 </div>
 
 <script>
+    $(document).ready(function() {
+        $('#placeOrderBtn').on('click', function() {
+            const items = [];
+            $('.quantity-input').each(function() {
+                const index = $(this).data('index');
+                const name = $(`td:eq(0)`, $(this).closest('tr')).text();
+                const price = parseFloat($(`td:eq(1)`, $(this).closest('tr')).text());
+                const quantity = parseInt($(this).val());
+                const total = price * quantity;
+
+                items.push({ name, price, quantity, total });
+            });
+
+            const subtotal = parseFloat($('#subtotal').text().replace('$', ''));
+
+            const orderData = { items, subtotal };
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/meat/place-order',
+                data: JSON.stringify(orderData),
+                contentType: 'application/json',
+                success: function(response) {
+                    alert(response.message);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+
+
     $(document).ready(function() {
         // Iterate over each quantity input to set the initial data attributes for price
         $('.quantity-input').each(function() {

@@ -3,6 +3,8 @@ let router = express.Router();
 let Meat = require("../../models/meatModel");
 const mongoose = require("mongoose");
 
+let cartOrder = require("../../models/cartorder");
+
 router.get('/', (req, res) => {
     res.send("Hello")
   });
@@ -134,6 +136,23 @@ router.delete("/api/meat/:id", async (req, res) => {
     
     return res.send(meat);
   });
+
+
+  router.post('/place-order', async (req, res) => {
+    const { items, subtotal } = req.body;
+
+    const order = new cartOrder({
+        items: items,
+        subtotal: subtotal
+    });
+
+    try {
+        await order.save();
+        res.status(201).json({ message: 'Order placed successfully', order });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});  
 
 //use this code if cart not work:
 
