@@ -104,9 +104,26 @@ app.use(session({
 // Middleware to set authenticated status
 const isAuthenticated = (req, res, next) => {
     const authenticated = req.session.authenticated || false;
-    res.locals.authenticated = authenticated;
+    // res.locals.authenticated = authenticated;
+    if (req.session.authenticated) {
+                // Assuming user details are stored in the session as req.session.user
+                req.user = req.session.user;
+                res.locals.authenticated = true;
+            }
     next();
 };
+// const isAuthenticated = (req, res, next) => {
+//     if (req.session.authenticated) {
+//         // Assuming user details are stored in the session as req.session.user
+//         req.user = req.session.user;
+//         res.locals.authenticated = true;
+//     } else {
+//         res.locals.authenticated = false;
+//         return res.status(401).json({ message: 'Unauthorized' });
+//     }
+//     next();
+// };
+
 const adminMiddleware = (req,res,next)=>
     {
      console.log("this is admin");

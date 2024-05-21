@@ -7,7 +7,7 @@ let Meat = require("../../models/meatModel");
 let Userinfo = require("../../models/userModel");
 // let Contactinfo = require("../../models/contactUsModel");
 const ContactUs = require("../../models/contactUsModel");
-
+let cartOrder = require("../../models/cartorder");
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -45,7 +45,7 @@ router.post('/upload', upload.single('image'), function (req, res) {
     res.render('uploadSuccess', { imageUrl: imageUrl });
   });
   
-router.get('users',async function (req,res) {
+router.get('/users',async function (req,res) {
     try {
         const users = await Userinfo.find();
         res.json(users);
@@ -53,6 +53,14 @@ router.get('users',async function (req,res) {
         res.status(500).json({ message: err.message });
     }
 })
+
+router.get('/orderHistory',async function (req,res) {
+  let cartOrders = await cartOrder.find();
+
+  return res.render("orderHistorybyAdmin", { cartOrders: cartOrders });
+})
+
+
 router.get('contacts',async function (req,res) {
   try {
       const users = await ContactUs.find();

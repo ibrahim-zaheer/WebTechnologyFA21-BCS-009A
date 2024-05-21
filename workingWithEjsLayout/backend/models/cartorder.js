@@ -9,6 +9,10 @@ const cartSchema = new mongoose.Schema({
         total: Number
     }],
     subtotal: Number,
+    userId:{
+        type: String,
+        default:"abba"
+    },
     date: {
         type: Date,
         default: Date.now

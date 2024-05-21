@@ -15,6 +15,7 @@
   width: 100%;
   padding: 20px;
   transition: all 0.4s ease;
+  z-index: 1000;
 }
 nav .nav-links a {
   visibility: visible;

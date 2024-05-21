@@ -1,0 +1,26 @@
+<div>
+    <h1>Order History</h1>
+    <% if (cartOrders.length === 0) { %>
+        <p>No orders found.</p>
+    <% } else { %>
+        <% cartOrders.forEach(order => { %>
+            <div class="order">
+                <h2>Order ID: <%= order._id %></h2>
+                <p>Subtotal: <%= order.subtotal %></p>
+                <p>Date: <%= new Date(order.date).toLocaleDateString() %></p>
+                <h3>Items:</h3>
+                <ul>
+                    <% order.items.forEach(item => { %>
+                        <li>
+                            <p>Name: <%= item.name %></p>
+                            <p>Price: <%= item.price %></p>
+                            <p>Quantity: <%= item.quantity %></p>
+                            <p>Total: <%= item.total %></p>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+            <hr>
+        <% }); %>
+    <% } %>
+</div>

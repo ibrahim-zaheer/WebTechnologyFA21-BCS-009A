@@ -1,12 +1,80 @@
+<style>
+    .animated-image {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animated-image.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animated-text {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animated-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <h2>About Our Firm</h2>
-            <p>This is some text content. You can add any text or HTML content here.</p>
+            <h2 class="animated-text">About Our Firm</h2>
+            <p class="animated-text">This is some text content. You can add any text or HTML content here.</p>
         </div>
         <div class="col-md-6">
-            <!-- <h2>Right Column (Image)</h2> -->
-            <img src="/images/meatFirm.png" alt="Image" class="img-fluid">
+            <img src="/images/meatFirm.png" alt="Image" class="img-fluid animated-image">
         </div>
     </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const textElements = document.querySelectorAll('.animated-text');
+    const imageElement = document.querySelector('.animated-image');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    // Function to observe image element with a delay
+    const observeImageWithDelay = () => {
+        setTimeout(() => {
+            imageObserver.observe(imageElement);
+        }, 5000); // Delay of 5 seconds (5000 milliseconds)
+    };
+
+    // Create an IntersectionObserver for text elements
+    const textObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Create an IntersectionObserver for the image element
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+                observeTextElements(); // Start observing text elements immediately
+            }
+        });
+    }, observerOptions);
+
+    // Observe the image element with a delay
+    observeImageWithDelay();
+});
+
+
+</script>

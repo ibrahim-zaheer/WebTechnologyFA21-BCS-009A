@@ -123,6 +123,7 @@ router.get("/api/meat/:id", async (req, res) => {
     return res.send(meat);
   });
   router.put("/api/meat/:id", async (req, res) => {
+    
     let meat = await Meat.findById(req.params.id);
     meat.name = req.body.name
     meat.quantity =  req.body.quantity,
@@ -140,10 +141,14 @@ router.delete("/api/meat/:id", async (req, res) => {
 
   router.post('/place-order', async (req, res) => {
     const { items, subtotal } = req.body;
+    // const userId;
+    
 
+    const userId = req.user.id;
     const order = new cartOrder({
         items: items,
-        subtotal: subtotal
+        subtotal: subtotal,
+        userId: userId
     });
 
     try {
@@ -153,6 +158,18 @@ router.delete("/api/meat/:id", async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });  
+
+router.get("/history", async (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const userId = req.user.id;
+    let cartOrders = await cartOrder.find({ userId: userId });
+
+    return res.render("orderHistory", { cartOrders: cartOrders });
+});
+
 
 //use this code if cart not work:
 

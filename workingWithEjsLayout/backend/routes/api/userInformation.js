@@ -124,6 +124,7 @@ router.post('/login', [
         // Set authenticated to true in session
         req.session.authenticated = true;
         req.session.adminAuthenticated = user.isAdmin;
+        req.session.user = { id: user.id, name: user.name };
         // Create and return JWT token
         const payload = {
             user: {
