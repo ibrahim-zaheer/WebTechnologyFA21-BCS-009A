@@ -407,7 +407,9 @@
                 data: JSON.stringify(orderData),
                 contentType: 'application/json',
                 success: function(response) {
-                    alert(response.message);
+                    alert("your order has been placed successfully");
+                    // Redirect to Order Success page
+                    window.location.href = "/webpage/OrderSuccess";
                 },
                 error: function(error) {
                     console.error(error);

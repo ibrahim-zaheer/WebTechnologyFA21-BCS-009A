@@ -129,13 +129,13 @@ router.get("/api/meat/:id", async (req, res) => {
     meat.quantity =  req.body.quantity,
     meat.price =  req.body.price,
     await meat.save();
-    return res.send(meat);
+    return res.render("updateMeat",{meat:meat})
   });
 // for deleting the data
 router.delete("/api/meat/:id", async (req, res) => {
     let meat = await Meat.findByIdAndDelete(req.params.id);
     
-    return res.send(meat);
+     return res.send(meat);
   });
 
 
@@ -153,11 +153,23 @@ router.delete("/api/meat/:id", async (req, res) => {
 
     try {
         await order.save();
-        res.status(201).json({ message: 'Order placed successfully', order });
+        // res.status(201).json({ message: 'Order placed successfully', order });
+        res.redirect("/webpage/OrderSuccess");
+        // res.render("orderSuccess")
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });  
+// router.get("/selectItem", async function(req, res) {
+//     try {
+        
+//         const items = await Meat.find(); 
+        
+//         res.render("selectItem", { items: items });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 router.get("/history", async (req, res) => {
     if (!req.user) {
