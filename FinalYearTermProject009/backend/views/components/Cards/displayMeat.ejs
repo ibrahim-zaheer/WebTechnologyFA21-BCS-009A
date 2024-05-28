@@ -1,0 +1,45 @@
+<%
+// Define pagination variables
+const itemsPerPage = 10;
+const totalPages = Math.ceil(data.length / itemsPerPage);
+const currentPage = 1; // Assuming you don't have access to req.query.page here
+
+// Slice the data based on pagination
+const slicedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+%>
+<div class="row">
+  <% slicedData.forEach((item, index) => { %>
+    <div class="col-md-3">
+      <div class="card">
+        <img src="<%= item[imageField] %>" class="card-img-top" alt="<%= item[fieldName] %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= item[fieldName] %></h5>
+          <!-- <div class="quantity-control">
+            <button class="decrement">-</button>
+            <input type="number" class="quantity" value="<%= item[quantityField] %>" min="1">
+            <button class="increment">+</button>
+          </div>
+          <p class="card-text">Quantity: <%= item[quantityField] %></p> -->
+          <p class="card-text">Price: <%= item[priceField] %></p>
+          
+          <!-- <a href="/api/meat/cart/<%= item._id %>">Add to Cart</a> -->
+
+           <!-- Input field for quantity -->
+           <form action="/api/meat/cart/<%= item._id %>" method="GET">
+            <input type="number" name="quantity" value="1" min="1">
+            <button type="submit">Add to Cart</button>
+            
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+    <% if ((index + 1) % 4 === 0) { %>
+      </div><div class="row">
+    <% } %>
+  <% }); %>
+</div>
+
+
+<!-- Pagination -->
