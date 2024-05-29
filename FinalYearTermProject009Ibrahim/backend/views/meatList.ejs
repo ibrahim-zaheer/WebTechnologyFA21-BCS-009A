@@ -37,6 +37,9 @@
       <% } %>
     </ul>
   </div>
+  <div>
+    <a href="/api/meat/list" class="btn btn-secondary">Back to List</a>
+  </div>
 
   <%- include('./components/Cards/displayMeat', { data: meat, fieldName: 'name', quantityField: 'quantity', priceField: 'price', imageField: 'image', currentPage: currentPage, totalPages: totalPages }); %>
 
@@ -45,9 +48,7 @@
     <% if (currentPage > 1) { %>
       <a href="/api/meat/list?page=<%= currentPage - 1 %>&name=<%= searchQuery %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">Previous</a>
     <% } %>
-    <% for (let i = 1; i <= totalPages; i++) { %>
-      <a href="/api/meat/list?page=<%= i %>&name=<%= searchQuery %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
-    <% } %>
+    
     <% if (currentPage < totalPages) { %>
       <a href="/api/meat/list?page=<%= currentPage + 1 %>&name=<%= searchQuery %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">Next</a>
     <% } %>
