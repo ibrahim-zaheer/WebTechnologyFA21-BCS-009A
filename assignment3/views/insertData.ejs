@@ -1,0 +1,35 @@
+<!-- insertData.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Data</title>
+</head>
+<body>
+    <h1>Insert Data</h1>
+    <form action="/insert" method="POST">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="cnic">CNIC:</label>
+        <input type="text" id="cnic" name="cnic" required><br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br><br>
+
+        <label for="meat">Meat:</label>
+        <select id="meat" name="meat" required>
+            <option value="Beef">Beef</option>
+            <option value="Fish">Fish</option>
+            <option value="Chicken">Chicken</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

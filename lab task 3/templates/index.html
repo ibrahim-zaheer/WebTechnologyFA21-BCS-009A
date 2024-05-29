@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body{
+        position: relative;
+    }
+    .video-container {
+      position: relative;
+      width: 100%; /* Adjust as needed */
+      height: 100%; /* Adjust as needed */
+    }
+    video {
+      height: 100%;
+      width: 100%;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.5s ease; /* Smooth transition */
+    }
+    .overlay.show {
+      opacity: 1; /* Show when the 'show' class is added */
+    }
+    .text_effect {
+      font-weight: 700;
+      text-align: center;
+      font-size: 40px;
+      font-family: Hack, sans-serif;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #000, #fff, #000);
+      letter-spacing: 5px;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-repeat: no-repeat;
+      background-size: 80%;
+      animation: shine 5s linear infinite;
+      position: relative;
+    }
+
+    @keyframes shine {
+      0% {
+        background-position-x: -500%;
+      }
+      100% {
+        background-position-x: 500%;
+      }
+      
+    }
+    .containerImage {
+  position: relative;
+  width: 1160px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  margin: auto;
+}
+.containerImage .box {
+  position: relative;
+  width: 275px;
+  height: 275px;
+  background: #000;
+  transition: 0.5s;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  margin-right: 15px;
+  margin-top: 45px;
+}
+.containerImage:hover .box {
+  transform: rotateY(25deg);
+}
+.containerImage .box:hover ~ .box {
+  transform: rotateY(-25deg);
+}
+.containerImage .box:hover {
+  transform: rotateY(0deg) scale(1.25);
+  z-index: 1;
+  box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+}
+.containerImage .box .imgBx {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.containerImage .box .imgBx:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg,#f00,#000);
+  z-index: 1;
+  opacity: 0;
+  transition: 0.5s;
+  mix-blend-mode: multiply;
+}
+.containerImage .box:hover .imgBx:before {
+  opacity: 1;
+}
+.containerImage .box .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.containerImage .box .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  padding: 20px;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+.containerImage .box .content h2 {
+  color: #fff;
+  transition: 0.5s;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-size: 20px;
+  transform: translateY(200px);
+  transition-delay: 0.3s;
+}
+.containerImage .box:hover .content h2 {
+  transform: translateY(0px);
+}
+.containerImage .box .content p {
+  color: #fff;
+  transition: 0.5s;
+  font-size: 14px;
+  transform: translateY(200px);
+  transition-delay: 0.4s;
+}
+.containerImage .box:hover .content p {
+  transform: translateY(0px);
+}
+.containerForm{
+  width: 300px;
+    margin: auto;
+    /* background-color: #f00; */
+}
+.containerForm > div {
+    margin-bottom: 10px;
+    
+  }
+  </style>
+
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar">
+
+<nav class="navbar navbar-expand-sm bg-dark justify-content-center fixed-top">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="./index.html">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#Products">Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#About">About Us</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/contactus">Contact Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/crudOperation">CRUD</a>
+      </li>
+  </ul>
+</nav>
+<div class="container-fluid">
+  <p class="text_effect" id="Home">Welcome to my Ibrahim Meat Zone</p>
+</div>
+<div class="video-container" id="video-container">
+  <video src="videos/chicken_video.mp4" id="video"></video>
+  <div class="overlay" id="overlay">
+    How to play  
+  </div>
+</div>
+<script>
+  const video = document.getElementById("video");
+  const overlay = document.getElementById("overlay");
+  const videoContainer = document.getElementById("video-container");
+
+  videoContainer.addEventListener('mouseenter', () => {
+      video.play();
+  });
+
+  videoContainer.addEventListener('mouseleave', () => {
+      video.pause();
+  });
+
+  // Function to show the overlay when scrolled
+  window.addEventListener('scroll', () => {
+      if (isInViewport(overlay)) {
+          overlay.classList.add('show');
+      }
+  });
+
+  // Function to check if an element is in the viewport
+  function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+  }
+</script>
+
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    </div>
+    
+    <!-- The slideshow/carousel -->
+    <div class="carousel-inner">
+      <div class="bg-light">
+      <div class="carousel-item active">
+        <img src="images/beef.jpg" height="500rem" alt="Los Angeles" class="d-block ik" style="width:100%">
+        <div class="carousel-caption bg-light">
+          <h3>Los Angeles</h3>
+          <p>We had such a great time in LA!</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="images/chicken.jpg" height="500rem" alt="Chicago" class="d-block" style="width:100%;">
+        <div class="carousel-caption bg-light">
+          <h3>Chicago</h3>
+          <p>Thank you, Chicago!</p>
+        </div> 
+      </div>
+      <div class="carousel-item">
+        <img src="images/muttonMeat.jpg" height="500rem" alt="New York" class="d-block" style="width:100% ">
+        <div class="carousel-caption bg-light">
+          <h3>New York</h3>
+          <p>We love the Big Apple!</p>
+        </div>  
+      </div>
+    </div>
+    
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</div>
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-md-8">
+      <img src="images/beef.jpg" width="500rem" alt="">
+    </div>
+    <div class="col-md-4">
+      <h1 data-bs-theme="dark">Take Your Meat Choice to </h1>
+      <h1>Next Level of Comfort and Authentic Taste </h1>
+    </div>
+  </div>
+</div>
+
+    
+<div class="container-fluid mt-3">
+  <div>
+    <h3 id="Products" class="justify-content-center d-flex">Our Products</h3>
+    <div class="container" style="display: flex;">
+      <div class="row">
+
+        <div style="flex: 1;" class="col-md-6">
+          <div class="card" style="width:400px">
+              <img class="card-img-top" src="images/chicken.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Chicken</h4>
+                <p class="card-text">We Only Breed Halal Chickens</p>
+                <a href="#" class="btn btn-primary">See Profile</a>
+              </div>
+            </div>
+       </div>
+       <div style="flex: 1;">
+          <div class="card" style="width:400px">
+              <img class="card-img-top" src="images/beef.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">Beef</h4>
+                <p class="card-text">We Only Breed Halal Chickens</p>
+                <a href="#" class="btn btn-primary">See Profile</a>
+              </div>
+            </div>
+       </div>
+       
+      <div style="flex: 1;">
+        <div class="card" style="width:400px">
+            <img class="card-img-top" src="images/meatBackground.jpg" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title">Mutton</h4>
+              <p class="card-text">Our Speacility is our specailly cut mutton</p>
+              <a href="#" class="btn btn-primary">See Profile</a>
+            </div>
+          </div>
+     </div>
+     <div style="flex: 1;">
+      <div class="card" style="width:400px">
+          <img class="card-img-top" src="images/fish.jpg" alt="Card image">
+          <div class="card-body">
+            <h4 class="card-title">Fish</h4>
+            <p class="card-text">Fish who wants some Fish</p>
+            <a href="#" class="btn btn-primary">See Profile</a>
+          </div>
+        </div>
+   </div>
+
+      </div>
+
+     </div>
+  </div>
+  <div class="container containerForm">
+
+    <form action="" method="post" onsubmit="return formValidator()" name="myForm">
+      <div>
+        <h4> Full name</h4>  
+        <input type="text" placeholder="Enter your full name" name="name"/>  
+      </div>
+      <div>
+        <h4>age</h4>  
+        <input type="number" placeholder="Enter your age" name="age"/>  
+      </div>
+      <div>
+        <h4>cnic</h4>  
+        <input type="text" placeholder="Enter your cnic" name="cnic"/> 
+      </div>
+      <div>
+        <h4>Location</h4>  
+        <input type="text" placeholder="Enter your Location" name="location"/> 
+      </div>
+    
+      <div>
+        Meat 
+        <select id="optionSelect" name="option">
+          <option value="option1">Chicken</option>
+          <option value="option2">Mutton</option>
+          <option value="option3">Beef</option>
+          <option value="option4">Fish</option>
+        </select>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <script>
+    function formValidator() {
+      let x = document.forms["myForm"]["name"].value
+      let y = document.forms["myForm"]["age"].value
+      let z = document.forms["myForm"]["cnic"].value
+      let loc = document.forms["myForm"]["location"].value
+      if(x == ""){
+        alert("name must be filled")
+        return false
+      }
+      else if(y <17){
+        alert("Sorry but the website is not made for children")
+        return false
+      }
+      else if(z.length<13){
+        alert("invalid cnic")
+        return false
+      }
+    }
+  </script>
+  
+  </div>
+  <div >
+    <div class="containerImage">
+      <div class="box">
+        <div class="imgBx">
+          <img src="images/goatTypes/mongolian goat.png">
+          <!-- <video src="videos/chicken_video.mp4"></video> -->
+        </div>
+        <div class="content">
+          <div>
+            <h2>Boer Goat</h2>
+            <p>Boer goats are a popular meat breed originating from South Africa. They are known for their impressive size, muscular build, and distinctive red or brown head with white bodies. 
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="imgBx">
+          <img src="images/goatTypes/desi goat.png">
+        </div>
+        <div class="content">
+          <div>
+            <h2>Nubian Goat</h2>
+            <p> Originating from Africa, they are known for their high butterfat content in their milk, making them a popular choice for dairy production. 
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="imgBx">
+          <img src="images/goatTypes/pahari bakra.png">
+        </div>
+        <div class="content">
+          <div>
+            <h2>Saanen Goat</h2>
+            <p>Originating from Switzerland, they are known for their pure white or creamy-colored coats and upright ears. 
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="imgBx">
+          <img src="images/goatTypes/teddy .png">
+        </div>
+        <div class="content">
+          <div>
+            <h2>Angora Goat</h2>
+            <p> Originating from Turkey, they are primarily raised for their fiber, which is prized for its warmth, sheen, and durability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4 p-5 bg-primary text-white rounded">
+    <h1>Special Message</h1> 
+    <p id="special_message">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero tenetur assumenda obcaecati itaque saepe accusamus impedit ipsa veritatis in odio illum, reiciendis voluptas, consequuntur adipisci velit consectetur amet, officia enim?</p> 
+    <button onclick=" return change()"> click me</button>
+    <script>
+     function change(){
+      document.getElementById("special_message").innerHTML = "Special message has been accessed"
+     }
+  
+
+   
+    </script>
+  </div>
+  
+  <footer class="footer-main bg-dark " id="Contact">
+    <div class="container">
+      <div class="row address-main">
+        <div class="col-lg-4 col-sm-12 col-xs-12">
+          <div class="address-box clearfix">
+            <div class="add-icon">
+              <img src="Img/footer-icon-01.png" alt="" />
+            </div>
+            <div class="add-content">
+              <h5>Address</h5>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut veniam </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-12 col-xs-12">
+          <div class="address-box clearfix">
+            <div class="add-icon">
+              <img src="Img/footer-icon-02.png" alt="" />
+            </div>
+            <div class="add-content">
+              <h5>Phone</h5>
+              <p>  +(92) 3094187234 <br />
+             
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-12 col-xs-12">
+          <div class="address-box clearfix">
+            <div class="add-icon">
+              <img src="Img/footer-icon-03.png" alt="" />
+            </div>
+            <div class="add-content">
+              <h5>Email</h5>
+              <p> <a href="mailto:" style="text-decoration:none">zaheeribrahim346@gmail.com</a> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+  
+  
+  <!-- Copyright Footer -->
+  <footer class="bg-dark text-center text-white">
+  
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fa fa-facebook-f"></i
+      ></a>
+  
+      <!-- Twitter -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fa fa-twitter"></i
+      ></a>
+  
+      <!-- Google -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fa fa-google"></i
+      ></a>
+  
+      <!-- Instagram -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fa fa-instagram"></i
+      ></a>
+  
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+  
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+  ILoveMeat © 2024 All Rights Reserved.
+  </div>
+  <!-- Copyright -->
+  </footer>
+  </footer>
+  <button id="popoverButton" type="button" class="d-none" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Welcome! This is a message displayed on page reload.">
+    Popover Button
+  </button>
+  <script>
+    $(document).ready(function(){
+      // Initialize popover
+      var popover = new bootstrap.Popover(document.getElementById('popoverButton'));
+    
+      // Show popover on page load
+      $('#popoverButton').popover('show');
+    });
+    </script>
+</body>
+</html>

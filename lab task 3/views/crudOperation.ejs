@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+        /* Additional CSS styling */
+        .card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+  </head>
+  <%- include('header');  %>
+  
+  
+
+  <body>
+    <div id="foodList" class="row"></div>
+    <div>
+      <h4>Add a food item</h4>
+      <p><input type="text" id="add-name" placeholder="Name" /></p>
+      <p><input type="number" id="add-price" placeholder="Price" /></p>
+      <p><input type="url" id="add-image" placeholder="Image URL" /></p>
+      <button id="add-item">Add the item</button>
+    </div>
+    <div>
+      <h4>Update a food item</h4>
+      <p><input type="text" id="update-id" placeholder="id" /></p>
+      <p><input type="text" id="update-name" placeholder="Name" /></p>
+      <p><input type="number" id="update-price" placeholder="Price" /></p>
+      <p><input type="url" id="update-image" placeholder="Image URL" /></p>
+      <button id="update-item">Update the item</button>
+    </div>
+       <div>
+      <h4>Delete a food item</h4>
+      <p><input type="text" id="delete-id" placeholder="id" /></p>
+    
+      <button id="delete-item">Delete the item</button>
+    </div>
+
+    <script>
+     var currentPage = 1;
+  var itemsPerPage = 12;
+
+  function displayFood(page) {
+    $.ajax({
+      url: "https://65f27572034bdbecc764d644.mockapi.io/api/meat/meat",
+      method: "GET",
+      dataType: "json",
+      success: function (foods) {
+        var startIndex = (page - 1) * itemsPerPage;
+        var endIndex = startIndex + itemsPerPage;
+        var paginatedFoods = foods.slice(startIndex, endIndex);
+
+        var uniList = $("#foodList");
+        uniList.empty();
+
+        $.each(paginatedFoods, function (index, food) {
+          uniList.append(
+            `<div class="col-md-4">
+              <div class="card mb-3">
+                <img src="${food.Image}" class="card-img-top" alt="${food.name}">
+                <div class="card-body">
+                  <h5 class="card-title">${food.name}</h5>
+                  <p class="card-text">${food.price}</p>
+                  <a href="https://65f27572034bdbecc764d644.mockapi.io/api/meat/meat/${food.id}" class="btn btn-primary">View Details</a>
+                </div>
+              </div>
+            </div>`
+          );
+        });
+
+        // Display pagination if there are more items
+        if (foods.length > itemsPerPage) {
+          var totalPages = Math.ceil(foods.length / itemsPerPage);
+          var pagination = `
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <li class="page-item ${page === 1 ? 'disabled' : ''}">
+                  <a class="page-link" href="#" onclick="displayFood(${page - 1})">Previous</a>
+                </li>`;
+
+          for (let i = 1; i <= totalPages; i++) {
+            pagination += `
+              <li class="page-item ${i === page ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="displayFood(${i})">${i}</a>
+              </li>`;
+          }
+
+          pagination += `
+                <li class="page-item ${page === totalPages ? 'disabled' : ''}">
+                  <a class="page-link" href="#" onclick="displayFood(${page + 1})">Next</a>
+                </li>
+              </ul>
+            </nav>`;
+
+          uniList.append(pagination);
+        }
+      },
+      error: function (error) {
+        console.error("Error fetching stories:", error);
+      },
+    });
+  };
+      function addFood(name, price, image) {
+        var foodData = {
+          name: name,
+          price: price,
+          Image: image,
+        };
+
+        $.ajax({
+          url: "https://65f27572034bdbecc764d644.mockapi.io/api/meat/meat",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(foodData),
+          success: function (response) {
+            console.log("Food added successfully:", response);
+            displayFood();
+          },
+          error: function (error) {
+            console.error("Error adding food:", error);
+          },
+        });
+      }
+      function updateFood(id, name, price, image) {
+        var foodData = {
+          name: name,
+          price: price,
+          Image: image,
+        };
+
+        $.ajax({
+          url:
+            "https://65f27572034bdbecc764d644.mockapi.io/api/meat/meat/" + id,
+          method: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(foodData),
+          success: function (response) {
+            console.log("Food updated successfully:", response);
+            displayFood();
+          },
+          error: function (error) {
+            console.error("Error adding food:", error);
+          },
+        });
+      }
+      function deleteFood(id) {
+    $.ajax({
+        url: "https://65f27572034bdbecc764d644.mockapi.io/api/meat/meat/" + id,
+        method: "DELETE",
+        success: function(response) {
+            console.log("Food deleted successfully:", response);
+            // Optionally, you can trigger the displayFood function to refresh the list
+            displayFood();
+        },
+        error: function(error) {
+            console.error("Error deleting food:", error);
+        }
+    });
+}
+
+
+      $(document).ready(function () {
+        displayFood();
+        $("#add-item").click(function () {
+          var name = $("#add-name").val();
+          var price = $("#add-price").val();
+          var image = $("#add-image").val();
+          addFood(name, price, image);
+        });
+        $("#update-item").click(function () {
+          var id = $("#update-id").val();
+          var name = $("#update-name").val();
+          var price = $("#update-price").val();
+          var image = $("#update-image").val();
+          updateFood(id, name, price, image);
+        });
+         $("#delete-item").click(function () {
+          var id = $("#delete-id").val();
+         
+          deleteFood(id)
+        });
+      });
+    </script>
+  </body>
+</html>

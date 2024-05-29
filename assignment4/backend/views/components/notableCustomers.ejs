@@ -1,0 +1,64 @@
+<style>
+
+.animated-image {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animated-image.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+</style>
+<div class="container">
+  <div class="row">
+      <!-- Column 1 -->
+      <div class="col">
+          <img src="/images/brands/burgerKing.jpg" class="img-fluid animated-image" alt="Image 1">
+      </div>
+      <!-- Column 2 -->
+      <div class="col">
+          <img src="/images/brands/cheetos.jpg" class="img-fluid animated-image" alt="Image 2">
+      </div>
+      <!-- Column 3 -->
+      <div class="col">
+          <img src="/images/brands/nike.jpg" class="img-fluid animated-image" alt="Image 3">
+      </div>
+      <!-- Column 4 -->
+      <div class="col">
+          <img src="/images/brands/OIP.jpg" class="img-fluid animated-image" alt="Image 4">
+      </div>
+      <!-- Column 5 -->
+      <div class="col">
+          <img src="/images/brands/pringle.jpg" class="img-fluid animated-image" alt="Image 5">
+      </div>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const images = document.querySelectorAll('.animated-image');
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 500); // Delay each image by 500ms
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    images.forEach(img => {
+        observer.observe(img);
+    });
+});
+
+</script>

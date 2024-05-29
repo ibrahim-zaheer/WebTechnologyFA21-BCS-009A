@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+.container{
+   
+    
+}
+
+.main_heading_Text{
+
+}
+
+body
+{
+    font-family: Inter,sans-serif;
+    /* background-color: green; */
+    color: green;
+}
+*{
+    padding: 0; 
+    margin: 0;
+    box-sizing: border-box; 
+}
+/* main heading text */
+.main_heading_Text{
+    font-size: 6.5rem;
+    text-align: center;
+    display: flex;
+}
+.part1{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    
+    flex-grow: 1;    
+}
+
+.part2{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+    
+   font-size: 6.5;
+    margin-left: auto;
+    margin-right: auto;  
+}
+
+
+  
+  .grid-container {
+    display: flex;
+  }
+  .grid-item{
+    margin: 5px;
+    padding: 10px
+  }
+
+
+  /* type writer effect */
+  @keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  
+  .typewriter {
+    overflow: hidden; /* Hide overflow text */
+    border-right: .15em solid orange; /* Cursor effect */
+    white-space: nowrap; /* Prevent text from wrapping */
+    animation: typewriter 2s steps(5); /* Duration and timing */
+  }
+  
+  /* Optional: Style for text */
+  .typewriter-text {
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+  }
+
+/* for image flexing */
+.img_flex{
+    display: flex;
+}
+.img_flex_item{
+    margin-left: auto;
+    margin-right: auto;
+}
+
