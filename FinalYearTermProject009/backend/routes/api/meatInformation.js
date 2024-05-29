@@ -18,6 +18,18 @@ router.get('/', (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }); 
+
+router.get("/meat/:id", async function(req, res) {
+    try {
+        let meat = await Meat.findById(req.params.id);
+        if (!meat) {
+            return res.status(404).json({ message: "Meat product not found" });
+        }
+        res.render("meatDetail", { meat: meat, authenticated: req.session.authenticated });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
   
 
 router.get("/cart", async (req, res) => {

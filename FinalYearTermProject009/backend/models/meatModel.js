@@ -21,7 +21,11 @@ const meatSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    isFeatured: {
+        type: Boolean,
+        default: false
+        }
 });
 
 const Meat = mongoose.model('Meater', meatSchema);

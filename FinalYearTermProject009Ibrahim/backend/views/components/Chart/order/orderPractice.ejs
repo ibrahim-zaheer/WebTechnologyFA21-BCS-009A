@@ -1,0 +1,74 @@
+<h1>Meat Sales</h1>
+    <canvas id="lineChart" width="400" height="200"></canvas>
+    
+
+    <script>
+//        function generateRandomNumbers(count, min, max) {
+//     const numbers = [];
+//     for (let i = 0; i < count; i++) {
+//         numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+//     }
+//     return numbers;
+// }
+function generateRandomNumbers(order, animalType, min, max) {
+    // Filter orders based on the animal type
+    const filteredOrders = order.filter(order => order.animal === animalType);
+    
+    // Generate random numbers for the filtered orders
+    const numbers = [];
+    filteredOrders.forEach(order => {
+        for (let i = 0; i < order.quantity; i++) {
+            numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+    });
+    console.log("this is a code "+numbers)
+    return numbers;
+}
+
+
+// const NUMBER_CFG = { count: 7, min: 0, max: 1000000 };
+const NUMBER_CFG = { count: 7, min: 0, max: 1000000 };
+const randomNumbers = generateRandomNumbers(orders, 'chicken', NUMBER_CFG.min, NUMBER_CFG.max);
+const randomNumbers2 = generateRandomNumbers(orders, 'Cow', NUMBER_CFG.min, NUMBER_CFG.max);
+
+
+    const data = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+        {
+            label: 'Dataset 1',
+            data: randomNumbers,
+            borderColor: 'red',
+            backgroundColor: 'rgba(255, 0, 0, 0.5)',
+        },
+        {
+            label: 'Dataset 2',
+            data: randomNumbers2,
+            borderColor: 'blue',
+            backgroundColor: 'rgba(0, 0, 255, 0.5)',
+        }
+    ]
+};
+
+        const config = {
+          type: 'line',
+          data: data,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Chart.js Line Chart'
+              }
+            }
+          },
+        };
+
+        const lineChart = new Chart(
+          document.getElementById('lineChart'),
+          config
+        );
+    </script>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,6 +7,59 @@
 </head>
 <body>
   <h1>Meat List</h1>
-  <%- include('./components/Cards/displayMeat', { data: meat, fieldName: 'name', quantityField: 'quantity', priceField: 'price', imageField: 'image' }); %>
+  
+</body>
+</html> -->
+
+<!-- add this code when have to add search and pagination -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meat List</title>
+</head>
+<body>
+  <h1>Meat List</h1>
+
+  <!-- Search Form -->
+  <form action="/api/meat/list" method="GET">
+    <input type="text" name="name" placeholder="Search by name" value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>">
+    <input type="number" name="minPrice" placeholder="Min Price" value="<%= typeof minPrice !== 'undefined' ? minPrice : '' %>">
+    <input type="number" name="maxPrice" placeholder="Max Price" value="<%= typeof maxPrice !== 'undefined' ? maxPrice : '' %>">
+    <button type="submit">Search</button>
+  </form>
+
+  <!-- Button to show previous searches -->
+  <button onclick="document.getElementById('previousSearches').style.display = 'block'">Show Previous Searches</button>
+
+  <!-- Previous Searches List -->
+  <div id="previousSearches" style="display: none;">
+    <h2>Previous Searches</h2>
+    <ul>
+      <% if (previousSearches && previousSearches.length > 0) { %>
+        <% previousSearches.forEach(function(search) { %>
+          <li><%= search %></li>
+        <% }) %>
+      <% } else { %>
+        <li>No previous searches</li>
+      <% } %>
+    </ul>
+  </div>
+
+  <%- include('./components/Cards/displayMeat', { data: meat, fieldName: 'name', quantityField: 'quantity', priceField: 'price', imageField: 'image', currentPage: currentPage, totalPages: totalPages }); %>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <% if (currentPage > 1) { %>
+      <a href="/api/meat/list?page=<%= currentPage - 1 %>&name=<%= searchQuery %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">Previous</a>
+    <% } %>
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <a href="/api/meat/list?page=<%= i %>&name=<%= searchQuery %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+    <% } %>
+    <% if (currentPage < totalPages) { %>
+      <a href="/api/meat/list?page=<%= currentPage + 1 %>&name=<%= searchQuery %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">Next</a>
+    <% } %>
+  </div>
 </body>
 </html>

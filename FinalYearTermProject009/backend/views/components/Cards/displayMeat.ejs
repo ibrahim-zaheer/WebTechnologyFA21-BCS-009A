@@ -2,7 +2,7 @@
 // Define pagination variables
 const itemsPerPage = 10;
 const totalPages = Math.ceil(data.length / itemsPerPage);
-const currentPage = 1; // Assuming you don't have access to req.query.page here
+const currentPage = parseInt(req.query.page) || 1; // Get current page from query parameter or default to 1
 
 // Slice the data based on pagination
 const slicedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -28,9 +28,10 @@ const slicedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * it
            <form action="/api/meat/cart/<%= item._id %>" method="GET">
             <input type="number" name="quantity" value="1" min="1">
             <button type="submit">Add to Cart</button>
-            
           </form>
 
+          <!-- Button to view details -->
+          <a href="/meat/<%= item._id %>" class="btn btn-primary">View Details</a>
 
         </div>
       </div>
@@ -41,5 +42,13 @@ const slicedData = data.slice((currentPage - 1) * itemsPerPage, currentPage * it
   <% }); %>
 </div>
 
-
 <!-- Pagination -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+        <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+      </li>
+    <% } %>
+  </ul>
+</nav>

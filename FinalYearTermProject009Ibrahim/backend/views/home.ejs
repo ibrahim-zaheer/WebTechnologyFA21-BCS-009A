@@ -1,0 +1,22 @@
+<!-- 
+<h2>Welcome to the Home Page!</h2>
+<p>This is the content of the home page. and please visit us</p> -->
+
+<!-- Inside home.ejs -->
+<div class="text">
+    <p><h2>About Us</h2>
+      <%- include('./components/Cards/AboutUSCard'); %>
+  </div>
+  <div class="text">
+    <h2 class="text-center">Our Customers</h2>
+      <%- include('./components/notableCustomers'); %>
+  </div>
+<%- include('./components/Cards/makeUsUniqueCard'); %>
+<%- include('./components/Cards/AboutOurFirmCard'); %>
+
+<%- include('./components/Form/placingOrderForm'); %>
+<%- include('./components/Form/contactUsForm'); %>
+<%- include('./components/Cards/InformationCard'); %>
+<div>
+    <%- include('./components/Cards/whyTrustUs'); %>
+</div>
